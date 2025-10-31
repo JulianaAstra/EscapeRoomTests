@@ -17,6 +17,7 @@ public class EscapeRoomTests extends TestBase {
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
     LoginPage loginPage = new LoginPage();
+    TestData testData = new TestData();
 
     @ValueSource(strings = {
             "Склеп",
@@ -46,8 +47,30 @@ public class EscapeRoomTests extends TestBase {
 
     @Test
     @DisplayName("Пользователь регистрируется с валидными данными")
-    void test2() {
-        open("");
+    void registerWithValidData() {
+        mainPage
+                .openMainPage()
+                .openLoginPage();
+        loginPage
+                .checkLoginPageOpened()
+                .setEmail(testData.validEmail)
+                .setPassword(testData.validPassword)
+                .setCheckbox()
+                .clickSubmitBtn();
+    }
+
+    @Test
+    @DisplayName("Регистрация невозможна с невалидным email")
+    void registerWithInvalidEmail() {
+        mainPage
+                .openMainPage()
+                .openLoginPage();
+        loginPage
+                .checkLoginPageOpened()
+                .setEmail(testData.invalidEmail)
+                .setPassword(testData.validPassword)
+                .setCheckbox()
+                .checkSubmitBtn(false);
     }
 
     @Test
