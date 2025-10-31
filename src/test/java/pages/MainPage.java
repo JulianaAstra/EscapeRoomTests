@@ -44,10 +44,11 @@ public class MainPage {
     }
 
     @Step("Пользователь залогинен")
-    public void checkLogin() {
+    public MainPage checkLogin() {
         myBookingsBtn
                 .shouldBe(visible);
         loginButtonAuth
                 .shouldBe(visible);
+        return this;
     }
 }

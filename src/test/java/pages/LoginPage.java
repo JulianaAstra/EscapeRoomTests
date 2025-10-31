@@ -42,7 +42,8 @@ public class LoginPage {
 
     @Step("Выбрать чек-бокс согласия с правилами обработки данных")
     public LoginPage setCheckbox() {
-        agreementCheckbox.click();
+        agreementCheckbox
+                .click();
         return this;
     }
 
@@ -57,5 +58,13 @@ public class LoginPage {
     public void checkSubmitBtn(boolean submitBtnState) {
         boolean btnState = submitBtn.isEnabled();
         Assertions.assertEquals(btnState, submitBtnState);
+    }
+
+    @Step("Регистрация пользователя с валидными данными")
+    public void registerUser(String email, String password) {
+        setEmail(email)
+        .setPassword(password)
+        .setCheckbox()
+        .clickSubmitBtn();
     }
 }

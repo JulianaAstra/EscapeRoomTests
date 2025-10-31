@@ -4,20 +4,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pages.LoginPage;
-import pages.MainPage;
-import pages.QuestPage;
-
-import static com.codeborne.selenide.Selenide.open;
+import pages.*;
+import static tests.TestData.*;
 
 public class EscapeRoomTests extends TestBase {
-    private static final Logger log = LoggerFactory.getLogger(EscapeRoomTests.class);
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
     LoginPage loginPage = new LoginPage();
     TestData testData = new TestData();
+    BookingPage bookingPage = new BookingPage();
+    MyBookingsPage myBookingsPage = new MyBookingsPage();
 
     @ValueSource(strings = {
             "Склеп",
@@ -34,7 +30,7 @@ public class EscapeRoomTests extends TestBase {
     })
     @ParameterizedTest(name = "Попытка бронирования квеста {0} без логина приводит на страницу регистрации")
     @DisplayName("Попытка бронирования квеста без логина приводит на страницу регистрации")
-    void bookingWithoutLogin(String quest) {
+    void bookingWithoutLoginTest(String quest) {
         mainPage
                 .openMainPage()
                 .openQuestPage(quest);
@@ -47,7 +43,7 @@ public class EscapeRoomTests extends TestBase {
 
     @Test
     @DisplayName("Пользователь регистрируется с валидными данными")
-    void registerWithValidData() {
+    void registerWithValidDataTest() {
         mainPage
                 .openMainPage()
                 .openLoginPage();
@@ -57,37 +53,83 @@ public class EscapeRoomTests extends TestBase {
                 .setPassword(testData.validPassword)
                 .setCheckbox()
                 .clickSubmitBtn();
+        mainPage
+                .checkLogin();
     }
 
-    @Test
+    @ValueSource(strings = {
+            EMAIL_NO_DOMAIN,
+            EMAIL_NO_AT,
+            EMAIL_DOUBLE_AT,
+            EMAIL_NO_USERNAME,
+            EMAIL_SPACES,
+            EMAIL_SPECIAL_CHARS,
+            EMAIL_ONLY_DOMAIN,
+            EMAIL_EMPTY
+    })
+    @ParameterizedTest(name = "Регистрация невозможна с невалидным email {0}")
     @DisplayName("Регистрация невозможна с невалидным email")
-    void registerWithInvalidEmail() {
+    void registerWithInvalidEmailTest(String email) {
         mainPage
                 .openMainPage()
                 .openLoginPage();
         loginPage
                 .checkLoginPageOpened()
-                .setEmail(testData.invalidEmail)
+                .setEmail(email)
                 .setPassword(testData.validPassword)
+                .setCheckbox()
+                .checkSubmitBtn(false);
+    }
+
+    @ValueSource(strings = {
+            PASSWORD_TOO_SHORT,
+            PASSWORD_EMPTY,
+            PASSWORD_ONE_CHAR,
+            PASSWORD_16_CHARS,
+            PASSWORD_ONLY_NUMBERS,
+            PASSWORD_ONLY_LETTERS,
+            PASSWORD_CYRILLIC
+    })
+    @ParameterizedTest(name = "Регистрация невозможна с невалидным паролем {0}")
+    @DisplayName("Регистрация невозможна с невалидным паролем")
+    void registerWithInvalidPasswordTest(String password) {
+        mainPage
+                .openMainPage()
+                .openLoginPage();
+        loginPage
+                .checkLoginPageOpened()
+                .setEmail(testData.validEmail)
+                .setPassword(password)
                 .setCheckbox()
                 .checkSubmitBtn(false);
     }
 
     @Test
     @DisplayName("Квест бронируется и отображается на странице бронирований")
-    void test3() {
-        open("");
-    }
+    void successfulBookingQuestTest() {
+        mainPage
+                .openMainPage()
+                .openLoginPage();
+        loginPage
+                .registerUser(testData.validEmail, testData.validPassword);
+        mainPage
+                .checkLogin()
+                .openQuestPage(questName);
+        questPage
+                .bookingBtnClick();
+        bookingPage
+                .checkBookingPageOpened(questName);
 
-    @Test
-    @DisplayName("Список квестов отображается на главной странице")
-    void test4() {
-        open("");
-    }
+        String bookTime = bookingPage.setTime();
 
-    @Test
-    @DisplayName("Список квестов фильтруется по жанру")
-    void test5() {
-        open("");
+        bookingPage
+                .setName(testData.userName)
+                .setPhone(testData.userPhone)
+                .setPlayersCount(personsCount)
+                .setCheckbox()
+                .clickBookBtn();
+        myBookingsPage
+                .checkMyBookingsPageOpened()
+                .checkBookedQuest(questName, bookTime);
     }
 }
