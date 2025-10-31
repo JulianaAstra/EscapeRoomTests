@@ -14,11 +14,11 @@ import java.util.Map;
 public class TestBase {
     @BeforeAll
     static void setupConfig() {
-        Configuration.remote= System.getProperty("remote");
+//        Configuration.remote= System.getProperty("remote");
         Configuration.baseUrl = System.getProperty("baseUrl", "https://escape-room-neon.vercel.app/");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
-        Configuration.browserVersion = System.getProperty("version", "128");
+//        Configuration.browserVersion = System.getProperty("version", "128");
         Configuration.pageLoadStrategy = "eager";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
