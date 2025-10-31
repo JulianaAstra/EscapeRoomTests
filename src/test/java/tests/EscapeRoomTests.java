@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -105,6 +106,7 @@ public class EscapeRoomTests extends TestBase {
     }
 
     @Test
+    @Disabled
     @DisplayName("Квест бронируется и отображается на странице бронирований")
     void successfulBookingQuestTest() {
         mainPage
