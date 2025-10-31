@@ -1,7 +1,7 @@
 package tests;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -30,7 +30,7 @@ public class EscapeRoomTests extends TestBase {
             "История призраков"
     })
     @ParameterizedTest(name = "Попытка бронирования квеста {0} без логина приводит на страницу регистрации")
-    @DisplayName("Попытка бронирования квеста без логина приводит на страницу регистрации")
+    @Tag("registration")
     void bookingWithoutLoginTest(String quest) {
         mainPage
                 .openMainPage()
@@ -44,6 +44,7 @@ public class EscapeRoomTests extends TestBase {
 
     @Test
     @DisplayName("Пользователь регистрируется с валидными данными")
+    @Tag("registration")
     void registerWithValidDataTest() {
         mainPage
                 .openMainPage()
@@ -69,7 +70,7 @@ public class EscapeRoomTests extends TestBase {
             EMAIL_EMPTY
     })
     @ParameterizedTest(name = "Регистрация невозможна с невалидным email {0}")
-    @DisplayName("Регистрация невозможна с невалидным email")
+    @Tag("registration")
     void registerWithInvalidEmailTest(String email) {
         mainPage
                 .openMainPage()
@@ -92,7 +93,7 @@ public class EscapeRoomTests extends TestBase {
             PASSWORD_CYRILLIC
     })
     @ParameterizedTest(name = "Регистрация невозможна с невалидным паролем {0}")
-    @DisplayName("Регистрация невозможна с невалидным паролем")
+    @Tag("registration")
     void registerWithInvalidPasswordTest(String password) {
         mainPage
                 .openMainPage()
@@ -106,8 +107,8 @@ public class EscapeRoomTests extends TestBase {
     }
 
     @Test
-    @Disabled
     @DisplayName("Квест бронируется и отображается на странице бронирований")
+    @Tag("booking")
     void successfulBookingQuestTest() {
         mainPage
                 .openMainPage()

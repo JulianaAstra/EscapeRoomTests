@@ -47,3 +47,15 @@ tasks.withType(Test) {
         }
     }
 }
+
+tasks.register('registration', Test) {
+    useJUnitPlatform {
+        includeTags("registration")
+    }
+}
+
+tasks.register('booking', Test) {
+    useJUnitPlatform {
+        includeTags("booking")
+    }
+}
