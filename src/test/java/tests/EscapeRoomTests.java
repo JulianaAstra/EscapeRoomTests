@@ -29,7 +29,8 @@ public class EscapeRoomTests extends TestBase {
             "Последний рубеж",
             "История призраков"
     })
-    @ParameterizedTest(name = "Попытка бронирования квеста {0} без логина приводит на страницу регистрации")
+    @ParameterizedTest(name = "Квест {0}")
+    @DisplayName("Попытка бронирования квеста без логина приводит на страницу регистрации")
     @Tag("registration")
     void bookingWithoutLoginTest(String quest) {
         mainPage
@@ -71,7 +72,8 @@ public class EscapeRoomTests extends TestBase {
             EMAIL_ONLY_DOMAIN,
             EMAIL_EMPTY
     })
-    @ParameterizedTest(name = "Регистрация невозможна с невалидным email {0}")
+    @ParameterizedTest(name = "{0}")
+    @DisplayName("Регистрация невозможна с невалидным email: ")
     @Tag("registration")
     void registerWithInvalidEmailTest(String email) {
         mainPage
@@ -94,7 +96,8 @@ public class EscapeRoomTests extends TestBase {
             PASSWORD_ONLY_LETTERS,
             PASSWORD_CYRILLIC
     })
-    @ParameterizedTest(name = "Регистрация невозможна с невалидным паролем {0}")
+    @ParameterizedTest(name = "{0}")
+    @DisplayName("Регистрация невозможна с невалидным паролем: ")
     @Tag("registration")
     void registerWithInvalidPasswordTest(String password) {
         mainPage
