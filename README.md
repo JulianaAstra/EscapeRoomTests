@@ -31,7 +31,7 @@ ____
 <a href="https://gradle.org/"><img src="images/logo/Gradle.svg" width="50" height="50"  alt="Gradle"/></a>  
 <a href="https://selenide.org/"><img src="images/logo/Selenide.svg" width="50" height="50"  alt="Selenide"/></a>  
 <a href="https://aerokube.com/selenoid/"><img src="images/logo/Selenoid.svg" width="50" height="50"  alt="Selenoid"/></a>  
-<a href="ht[images](images)tps://github.com/allure-framework/allure2"><img src="images/logo/Allure.svg" width="50" height="50"  alt="Allure"/></a>  
+<a href="https://allurereport.org/"><img src="images/logo/Allure.svg" width="50" height="50"  alt="Allure"/></a>  
 <a href="https://www.jenkins.io/"><img src="images/logo/Jenkins.svg" width="50" height="50"  alt="Jenkins"/></a>   
 </p>
 
@@ -61,8 +61,11 @@ ____
 - *baseUrl (адрес тестируемого веб-сайта)*
 - *remoteUrl (логин, пароль и адрес удаленного сервера Selenoid)*
 
+## **Запуск тестов**
+Важно: количество слотов для бронирования на сайте ограничено. Забронированные слоты сбрасываются раз в сутки. Поэтому выделены задачи для отдельного запуска тестов на регистрацию и теста на бронирование (чтобы не исчерпать доступные слоты)
+
 <a id="console"></a>
-## Команды для запуска из терминала
+### Команды для запуска из терминала
 ___
 ***Локальный запуск всех тестов:***
 ```bash  
