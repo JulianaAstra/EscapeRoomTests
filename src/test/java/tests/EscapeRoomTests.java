@@ -34,6 +34,7 @@ public class EscapeRoomTests extends TestBase {
     void bookingWithoutLoginTest(String quest) {
         mainPage
                 .openMainPage()
+//                .unloginIfLogin()
                 .openQuestPage(quest);
         questPage
                 .bookingBtnClick();
@@ -48,6 +49,7 @@ public class EscapeRoomTests extends TestBase {
     void registerWithValidDataTest() {
         mainPage
                 .openMainPage()
+//                .unloginIfLogin()
                 .openLoginPage();
         loginPage
                 .checkLoginPageOpened()

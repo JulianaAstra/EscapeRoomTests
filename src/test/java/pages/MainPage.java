@@ -51,4 +51,17 @@ public class MainPage {
                 .shouldBe(visible);
         return this;
     }
+
+    @Step("Разлогиниться, если пользователь залогинен")
+    public MainPage unloginIfLogin() {
+        if (!myBookingsBtn.isDisplayed() && !loginButtonAuth.isDisplayed()) {
+            return this;
+        }
+        loginButtonAuth
+                .click();
+        loader.shouldNotBe(visible);
+        loginButtonNoAuth
+                .shouldBe(visible);
+        return this;
+    }
 }
