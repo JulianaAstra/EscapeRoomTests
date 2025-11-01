@@ -72,8 +72,8 @@ public class EscapeRoomTests extends TestBase {
             EMAIL_ONLY_DOMAIN,
             EMAIL_EMPTY
     })
-    @ParameterizedTest(name = "{0}")
-    @DisplayName("Регистрация невозможна с невалидным email: ")
+    @ParameterizedTest(name = "email: {0}")
+    @DisplayName("Регистрация с невалидным email невозможна: ")
     @Tag("registration")
     void registerWithInvalidEmailTest(String email) {
         mainPage
@@ -96,8 +96,8 @@ public class EscapeRoomTests extends TestBase {
             PASSWORD_ONLY_LETTERS,
             PASSWORD_CYRILLIC
     })
-    @ParameterizedTest(name = "{0}")
-    @DisplayName("Регистрация невозможна с невалидным паролем: ")
+    @ParameterizedTest(name = "пароль {0}")
+    @DisplayName("Регистрация с невалидным паролем невозможна: ")
     @Tag("registration")
     void registerWithInvalidPasswordTest(String password) {
         mainPage
