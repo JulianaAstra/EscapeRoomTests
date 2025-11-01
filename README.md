@@ -91,7 +91,7 @@ clean ${TASK}
 -Dversion=${BROWSER_VERSION}
 -DbaseUrl=${BASE_URL}
 -Dremote=https://${USER}:${PASSWORD}@${REMOTE}/wd/hub
--DquestName=${QUEST_NAME}
+-DquestName="${QUEST_NAME}"
 ```
 ___
 <a id="allure"></a>
