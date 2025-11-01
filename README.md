@@ -115,7 +115,7 @@ ___
   <p align="center">  
 <img title="Allure Graphics" src="images/screen/allure_report_2.png" width="850">
 
-<img title="Allure Graphics" src="images/screen/allure_report_8.png" width="850">  
+<img title="Allure Graphics" src="images/screen/allure_report_3.png" width="850">  
 </p>
 
 ____
