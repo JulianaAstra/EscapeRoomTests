@@ -8,7 +8,7 @@ public class TestData {
     public String validEmail = faker.internet().emailAddress();
     public String validPassword = "t1" + faker.internet().password(1, 10, true);
 
-    public static String questName = "Ритуал";
+    public static String questName = System.getProperty("questName", "Ритуал");
     public static String personsCount = "5";
     public String userName = faker.name().firstName();
     public String userPhone = "+7(900)" + faker.numerify("###-##-##");
