@@ -1,6 +1,6 @@
-﻿# Проект по автоматизации тестирования для сайта бронирования квестов [EscapeRoom](https://escape-room-neon.vercel.app/)
-
 ## <img alt="EscapeRoom" height="52" src="images/logo/logo.svg" width="134"/>
+# Проект по автоматизации тестирования для сайта бронирования квестов [EscapeRoom](https://escape-room-neon.vercel.app/)
+
 * Проект Escape Room — ученический проект по фронтенд-разработке от HTML-Академии.
 * [Репозиторий с проектом](https://github.com/JulianaAstra/Escape_Room)
 
