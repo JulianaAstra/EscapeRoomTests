@@ -7,14 +7,24 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
 import static tests.TestData.*;
+import static tests.TestData.EMAIL_EMPTY;
+import static tests.TestData.EMAIL_NO_USERNAME;
+import static tests.TestData.EMAIL_ONLY_DOMAIN;
+import static tests.TestData.EMAIL_SPACES;
+import static tests.TestData.EMAIL_SPECIAL_CHARS;
+import static tests.TestData.PASSWORD_16_CHARS;
+import static tests.TestData.PASSWORD_CYRILLIC;
+import static tests.TestData.PASSWORD_EMPTY;
+import static tests.TestData.PASSWORD_ONE_CHAR;
+import static tests.TestData.PASSWORD_ONLY_LETTERS;
+import static tests.TestData.PASSWORD_ONLY_NUMBERS;
+import static tests.TestData.PASSWORD_TOO_SHORT;
 
-public class EscapeRoomTests extends TestBase {
+public class AuthorizationTests {
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
     LoginPage loginPage = new LoginPage();
     TestData testData = new TestData();
-    BookingPage bookingPage = new BookingPage();
-    MyBookingsPage myBookingsPage = new MyBookingsPage();
 
     @ValueSource(strings = {
             "Склеп",
@@ -107,35 +117,5 @@ public class EscapeRoomTests extends TestBase {
                 .setPassword(password)
                 .setCheckbox()
                 .checkSubmitBtn(false);
-    }
-
-    @Test
-    @DisplayName("Квест бронируется и отображается на странице бронирований")
-    @Tag("booking")
-    void successfulBookingQuestTest() {
-        mainPage
-                .openMainPage()
-                .openLoginPage();
-        loginPage
-                .registerUser(testData.validEmail, testData.validPassword);
-        mainPage
-                .checkLogin()
-                .openQuestPage(questName);
-        questPage
-                .bookingBtnClick();
-        bookingPage
-                .checkBookingPageOpened(questName);
-
-        String bookTime = bookingPage.setTime();
-
-        bookingPage
-                .setName(testData.userName)
-                .setPhone(testData.userPhone)
-                .setPlayersCount(personsCount)
-                .setCheckbox()
-                .clickBookBtn();
-        myBookingsPage
-                .checkMyBookingsPageOpened()
-                .checkBookedQuest(questName, bookTime);
     }
 }

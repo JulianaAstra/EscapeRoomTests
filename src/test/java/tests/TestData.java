@@ -1,9 +1,13 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import models.AuthBodyModel;
+import models.QuestModel;
+import util.QuestHelper;
 
 public class TestData {
     Faker faker = new Faker();
+    static QuestHelper questHelper = new QuestHelper();
 
     public String validEmail = faker.internet().emailAddress();
     public String validPassword = "t1" + faker.internet().password(1, 10, true);
@@ -29,4 +33,10 @@ public class TestData {
     public static final String PASSWORD_ONLY_NUMBERS = "1234";
     public static final String PASSWORD_ONLY_LETTERS = "password";
     public static final String PASSWORD_CYRILLIC = "пароль123";
+
+    private static final String REGISTERED_USER_EMAIL = "julianaas@yandex.ru";
+    private static final String REGISTERED_USER_PASSWORD = "234password";
+    public static final String REGISTERED_USER_TOKEN = "anVsaWFuYWFzQHlhbmRleC5ydQ==";
+
+    public AuthBodyModel authData = new AuthBodyModel(validEmail, validPassword);
 }

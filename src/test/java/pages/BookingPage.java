@@ -5,12 +5,13 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import util.Quest;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 
 public class BookingPage {
     private final SelenideElement loader = $(byText("Loading ..."));
@@ -24,6 +25,17 @@ public class BookingPage {
     private final SelenideElement agreementCheckbox = $(".booking-form__checkbox--agreement .custom-checkbox__icon");
     private final SelenideElement bookBtn = $(".booking-form__submit");
     ElementsCollection timeSlots = $$(".booking-form__date");
+
+    @Step("Открыть страницу бронирования квеста {questName} с токеном залогиненного пользователя")
+    public BookingPage openQuestPageWithLocalStorage(String token, String questName) {
+        String bookingUrl = Quest.getBookingUrlByName(questName);
+
+        open("favicon.ico");
+        executeJavaScript(String.format("localStorage.setItem('escape-room-token', '%s');", token));
+        open(bookingUrl);
+
+        return this;
+    }
 
     @Step("Cтраница бронирования квеста {questName} отображается")
     public BookingPage checkBookingPageOpened(String questName) {
@@ -39,16 +51,25 @@ public class BookingPage {
         return this;
     }
 
-    @Step("Выбрать время бронирования")
-    public String setTime() {
-        bookingDate
-                .scrollTo();
-        SelenideElement timeSlot = getFirstTimeSlot();
-        String bookTime = timeSlot.getText();
-        timeSlot
-                .click();
-        return bookTime;
-    }
+//    @Step("Указать время бронирования")
+//    public BookingPage setTime(String day, String time) {
+//        bookingDate
+//                .scrollTo();
+//
+//        switch (day) {
+//            case "today":
+//                break;
+//            case "tomorrow":
+//                break;
+//            default:
+//                System.out.println("нет такого дня");
+//        }
+//
+//
+//        timeSlots.find(byText(time))
+//                .click();
+//        return this;
+//    }
 
     @Step("Указать имя {userName}")
     public BookingPage setName(String userName) {
@@ -89,7 +110,7 @@ public class BookingPage {
         Assertions.assertEquals(btnState, bookBtnState);
     }
 
-    private SelenideElement getFirstTimeSlot() {
+    private SelenideElement getAvailableTimeSlot() {
         return timeSlots
                 .filterBy(match("Has enabled input",
                         el -> el.findElement(By.cssSelector("input"))
