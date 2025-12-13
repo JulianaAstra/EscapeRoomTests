@@ -34,9 +34,9 @@ public class TestData {
     public static final String PASSWORD_ONLY_LETTERS = "password";
     public static final String PASSWORD_CYRILLIC = "пароль123";
 
-    private static final String REGISTERED_USER_EMAIL = "julianaas@yandex.ru";
-    private static final String REGISTERED_USER_PASSWORD = "234password";
-    public static final String REGISTERED_USER_TOKEN = "anVsaWFuYWFzQHlhbmRleC5ydQ==";
+    private static final String REGISTERED_USER_EMAIL = "julianaastrastar@gmail.com";
+    private static final String REGISTERED_USER_PASSWORD = "password123";
+    public static final String REGISTERED_USER_TOKEN = "anVsaWFuYWFzdHJhc3RhckBnbWFpbC5jb20=";
 
-    public AuthBodyModel authData = new AuthBodyModel(validEmail, validPassword);
+    public AuthBodyModel authData = new AuthBodyModel(REGISTERED_USER_EMAIL, REGISTERED_USER_PASSWORD);
 }

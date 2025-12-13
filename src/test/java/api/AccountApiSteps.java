@@ -14,9 +14,8 @@ import static specs.Spec.responseSpec;
 public class AccountApiSteps {
     TestData testData = new TestData();
 
-    @Step("Авторизация нового пользователя")
+    @Step("Авторизация пользователя")
     public AuthResponseModel authUser() {
-
         return await().atMost(20, SECONDS)
                 .pollInterval(1, SECONDS)
                 .until(() -> {
@@ -24,7 +23,7 @@ public class AccountApiSteps {
                                     .spec(requestSpec)
                                     .body(testData.authData)
                                     .when()
-                                    .post("/v1/escape-room/login")
+                                    .post("login")
                                     .then()
                                     .spec(responseSpec(201))
                                     .extract().as(AuthResponseModel.class);

@@ -1,5 +1,6 @@
 package tests;
 
+import api.AccountApiSteps;
 import api.QuestsApiSteps;
 import models.*;
 import org.junit.jupiter.api.DisplayName;
@@ -16,13 +17,15 @@ public class BookingTests extends TestBase {
     MyBookingsPage myBookingsPage = new MyBookingsPage();
     QuestsApiSteps questsApiSteps = new QuestsApiSteps();
     QuestHelper questHelper = new QuestHelper();
+    QuestPage questPage = new QuestPage();
+    MainPage mainPage = new MainPage();
+    AccountApiSteps accountApiSteps = new AccountApiSteps();
 
     @Test
     @DisplayName("Квест бронируется и отображается на странице бронирований")
     @Tag("booking")
     void successfulBookingQuestTest() {
         List <QuestModel> quests = questsApiSteps.getQuestsList();
-
         QuestModel quest = questHelper.getRandomQuest(quests);
         String questId = quest.id();
         String questName = quest.title();
@@ -35,8 +38,15 @@ public class BookingTests extends TestBase {
         String time = availableTimeSlot.time();
         String day = String.valueOf(availableTimeSlot.day());
 
+        accountApiSteps
+                .authUser();
+        mainPage
+                .openMainPageWithLocalStorage(REGISTERED_USER_TOKEN, questName)
+                .openQuestPage(questName);
+
+        questPage
+                .bookingBtnClick();
         bookingPage
-                .openQuestPageWithLocalStorage(REGISTERED_USER_TOKEN, questName)
                 .checkBookingPageOpened(questName)
 //                .setTime(day, time)
                 .setName(testData.userName)

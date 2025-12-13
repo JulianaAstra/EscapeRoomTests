@@ -36,9 +36,4 @@ public enum Quest {
                         "Квест с названием '" + questName + "' не найден. "
                 ));
     }
-
-    public static String getBookingUrlByName(String questName) {
-        return "quest/" + getIdByName(questName) + "/booking";
-    }
-
 }

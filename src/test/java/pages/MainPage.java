@@ -26,6 +26,15 @@ public class MainPage {
         return this;
     }
 
+    @Step("Открыть страницу квеста {questName} с токеном залогиненного пользователя")
+    public MainPage openMainPageWithLocalStorage(String token, String questName) {
+        open("favicon.ico");
+        executeJavaScript(String.format("localStorage.setItem('escape-room-token', '%s');", token));
+        open("");
+
+        return this;
+    }
+
     @Step("Открыть страницу квеста {questName}")
     public void openQuestPage(String questName) {
         questCards

@@ -26,17 +26,6 @@ public class BookingPage {
     private final SelenideElement bookBtn = $(".booking-form__submit");
     ElementsCollection timeSlots = $$(".booking-form__date");
 
-    @Step("Открыть страницу бронирования квеста {questName} с токеном залогиненного пользователя")
-    public BookingPage openQuestPageWithLocalStorage(String token, String questName) {
-        String bookingUrl = Quest.getBookingUrlByName(questName);
-
-        open("favicon.ico");
-        executeJavaScript(String.format("localStorage.setItem('escape-room-token', '%s');", token));
-        open(bookingUrl);
-
-        return this;
-    }
-
     @Step("Cтраница бронирования квеста {questName} отображается")
     public BookingPage checkBookingPageOpened(String questName) {
         loader.shouldNotBe(visible);
