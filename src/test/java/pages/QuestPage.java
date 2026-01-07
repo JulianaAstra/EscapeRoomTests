@@ -13,4 +13,13 @@ public class QuestPage {
         bookingBtn.shouldBe(visible)
                 .click();
     }
+
+    @Step("Открыть страницу квеста {questName} с токеном залогиненного пользователя")
+    public QuestPage openQuestPageWithLocalStorage(String token, String questID) {
+        open("favicon.ico");
+        executeJavaScript(String.format("localStorage.setItem('escape-room-token', '%s');", token));
+        open("/quest/" + questID);
+
+        return this;
+    }
 }

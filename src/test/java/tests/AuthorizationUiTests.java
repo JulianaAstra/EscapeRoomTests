@@ -20,7 +20,7 @@ import static tests.TestData.PASSWORD_ONLY_LETTERS;
 import static tests.TestData.PASSWORD_ONLY_NUMBERS;
 import static tests.TestData.PASSWORD_TOO_SHORT;
 
-public class AuthorizationTests {
+public class AuthorizationUiTests {
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
     LoginPage loginPage = new LoginPage();

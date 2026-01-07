@@ -6,21 +6,20 @@ import models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import pages.*;
 import util.QuestHelper;
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.refresh;
-import static tests.TestData.*;
-
-public class BookingTests extends TestBase {
+public class BookingUiTests extends TestBase {
     TestData testData = new TestData();
+    MainPage mainPage = new MainPage();
     BookingPage bookingPage = new BookingPage();
     MyBookingsPage myBookingsPage = new MyBookingsPage();
     QuestsApiSteps questsApiSteps = new QuestsApiSteps();
     QuestHelper questHelper = new QuestHelper();
     QuestPage questPage = new QuestPage();
-    MainPage mainPage = new MainPage();
     AccountApiSteps accountApiSteps = new AccountApiSteps();
 
     @Test
@@ -41,8 +40,7 @@ public class BookingTests extends TestBase {
         String day = String.valueOf(availableTimeSlot.day());
         String token = accountApiSteps.authUser(testData.randomAuthData).token();
 
-        mainPage.openMainPageWithLocalStorage(token, questName)
-                .openQuestPage(questName);
+        questPage.openQuestPageWithLocalStorage(token, questId);
         questPage.bookingBtnClick();
         bookingPage.checkBookingPageOpened(questName)
                 .setTime(day, time)
@@ -58,5 +56,19 @@ public class BookingTests extends TestBase {
         String bookingId = questHelper.findBookingIdByQuestId(userBookings, questId);
         questsApiSteps.deleteUserBooking(token, bookingId);
         accountApiSteps.logoutUser(token);
+    }
+
+    @EnumSource(QuestType.class)
+    @ParameterizedTest(name = "Тематика {0}")
+    @DisplayName("Квесты фильтруются по тематике")
+    void successfulFilterQuestsTest(QuestType questType) {
+        // фильтруем квесты по тематике
+        mainPage.openMainPage()
+                .filterQuestsByType(questType);
+
+        // сохраняем в массив айдишники всех отображенных на странице после фильтрации квестов
+//        List<String> questsIds = mainPage.getQuestCardsIds();
+        // проверяем каждый квест по айди через апи
+//        questsApiSteps.checkQuestsTypeById(questsIds);
     }
 }
