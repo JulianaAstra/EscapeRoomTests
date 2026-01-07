@@ -64,11 +64,12 @@ public class BookingUiTests extends TestBase {
     void successfulFilterQuestsTest(QuestType questType) {
         // фильтруем квесты по тематике
         mainPage.openMainPage()
-                .filterQuestsByType(questType);
+                .filterQuestsByType(questType.getEnglishName());
 
         // сохраняем в массив айдишники всех отображенных на странице после фильтрации квестов
-//        List<String> questsIds = mainPage.getQuestCardsIds();
+        List<String> questsIds = mainPage.getAllQuestsIds();
+
         // проверяем каждый квест по айди через апи
-//        questsApiSteps.checkQuestsTypeById(questsIds);
+        questsApiSteps.checkQuestsTypeInList(questsIds, questType.getEnglishName());
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public enum QuestType {
     ADVENTURE("Приключения", "adventures"),
     HORROR("Ужасы", "horror"),
-    MYSTERY("Мистика", "mystic"),
+    MYSTIC("Мистика", "mystic"),
     DETECTIVE("Детектив", "detective"),
     SCI_FI("Sci-fi", "sci-fi");
 

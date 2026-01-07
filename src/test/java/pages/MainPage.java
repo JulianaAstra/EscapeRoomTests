@@ -5,6 +5,9 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import models.QuestType;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
@@ -50,10 +53,18 @@ public class MainPage {
     }
 
     @Step("Отфильтровать квесты по тематике {questType}")
-    public MainPage filterQuestsByType(QuestType questType) {
-        filterByType.findBy(attribute("for", questType.getEnglishName()))
+    public MainPage filterQuestsByType(String questType) {
+        filterByType.findBy(attribute("for", questType))
                 .click();
         questCards.shouldHave(sizeGreaterThan(0));
         return this;
+    }
+
+    @Step("Получить id всех квестов в списке")
+    public List<String> getAllQuestsIds() {
+        return questCards.stream()
+                .map(card -> card.$("a").getAttribute("href"))
+                .map(url -> url.split("quest/")[1])
+                .toList();
     }
 }

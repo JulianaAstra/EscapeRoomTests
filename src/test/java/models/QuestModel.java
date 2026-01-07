@@ -9,6 +9,8 @@ public record QuestModel(
         String title,
         String previewImg,
         String previewImgWebp,
+        String coverImg,
+        String coverImgWebp,
         String level,
         String type,
         List<Integer> peopleMinMax

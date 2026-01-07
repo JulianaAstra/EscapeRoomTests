@@ -1,9 +1,8 @@
 package api;
 
 import io.qameta.allure.Step;
-import models.QuestBookingResponseModel;
-import models.QuestModel;
-import models.UserBookingResponseModel;
+import models.*;
+import org.junit.jupiter.api.Assertions;
 import util.QuestHelper;
 import java.util.List;
 import static io.restassured.RestAssured.given;
@@ -68,6 +67,31 @@ public class QuestsApiSteps {
 
         if (!questHelper.hasAvailableTimeSlots(questBookingInfo)) {
             throw new RuntimeException("У выбранного квеста нет доступных слотов");
+        }
+    }
+
+    @Step("Получить информацию о квесте по id: {questId}")
+    private QuestModel getQuestBaseInfo(String questId) {
+        return given()
+                .spec(requestSpec)
+                .when()
+                .get("quest/" + questId)
+                .then()
+                .spec(responseSpec(200))
+                .extract().as(QuestModel.class);
+    }
+
+    @Step("Проверка тематики {expectedQuestType} по id квеста {questId}")
+    private void checkQuestType(String expectedQuestType, String questId) {
+        QuestModel quest = getQuestBaseInfo(questId);
+        String questType = quest.type();
+        Assertions.assertEquals(questType, expectedQuestType);
+    }
+
+    @Step("Проверка всех квестов в списке на соответствие тематике {expectedQuestType}")
+    public void checkQuestsTypeInList(List<String> questsIds, String expectedQuestType) {
+        for (String questsId: questsIds) {
+            checkQuestType(expectedQuestType, questsId);
         }
     }
 }
