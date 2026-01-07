@@ -1,17 +1,11 @@
 package pages;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import util.Quest;
-
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.open;
 
 public class BookingPage {
     private final SelenideElement loader = $(byText("Loading ..."));
@@ -24,7 +18,8 @@ public class BookingPage {
     private final SelenideElement personsInput = $("#person");
     private final SelenideElement agreementCheckbox = $(".booking-form__checkbox--agreement .custom-checkbox__icon");
     private final SelenideElement bookBtn = $(".booking-form__submit");
-    ElementsCollection timeSlots = $$(".booking-form__date");
+    private final SelenideElement todayTimeSection = $x("//fieldset[legend[contains(text(), 'Сегодня')]]//div[contains(@class, 'booking-form__date-inner-wrapper')]");
+    private final SelenideElement tomorrowTimeSection = $x("//fieldset[legend[contains(text(), 'Завтра')]]//div[contains(@class, 'booking-form__date-inner-wrapper')]");
 
     @Step("Cтраница бронирования квеста {questName} отображается")
     public BookingPage checkBookingPageOpened(String questName) {
@@ -40,25 +35,22 @@ public class BookingPage {
         return this;
     }
 
-//    @Step("Указать время бронирования")
-//    public BookingPage setTime(String day, String time) {
-//        bookingDate
-//                .scrollTo();
-//
-//        switch (day) {
-//            case "today":
-//                break;
-//            case "tomorrow":
-//                break;
-//            default:
-//                System.out.println("нет такого дня");
-//        }
-//
-//
-//        timeSlots.find(byText(time))
-//                .click();
-//        return this;
-//    }
+    @Step("Указать время бронирования")
+    public BookingPage setTime(String day, String time) {
+        bookingDate.scrollTo();
+
+        switch (day) {
+            case "TODAY":
+                todayTimeSection.$x(".//label//span[contains(text(), '" + time + "')]").click();
+                break;
+            case "TOMORROW":
+                tomorrowTimeSection.$x(".label//span[contains(text(), '" + time + "')]").click();
+                break;
+            default:
+                throw new RuntimeException("Такого времени бронирования не существует");
+        }
+        return this;
+    }
 
     @Step("Указать имя {userName}")
     public BookingPage setName(String userName) {
@@ -80,8 +72,7 @@ public class BookingPage {
 
     @Step("Выбрать чек-бокс согласия с правилами обработки данных")
     public BookingPage setCheckbox() {
-        agreementCheckbox
-                .scrollTo()
+        agreementCheckbox.scrollTo()
                 .click();
         return this;
     }
@@ -89,22 +80,12 @@ public class BookingPage {
     @Step("Клик по кнопке Забронировать")
     public void clickBookBtn() {
         checkBookBtn(true);
-        bookBtn
-                .click();
+        bookBtn.click();
     }
 
     @Step("Состояние кнопки Забронировать - {bookBtnState}")
     public void checkBookBtn(boolean bookBtnState) {
         boolean btnState = bookBtn.isEnabled();
         Assertions.assertEquals(btnState, bookBtnState);
-    }
-
-    private SelenideElement getAvailableTimeSlot() {
-        return timeSlots
-                .filterBy(match("Has enabled input",
-                        el -> el.findElement(By.cssSelector("input"))
-                                .getAttribute("disabled") == null))
-                .shouldHave(sizeGreaterThan(0))
-                .first();
     }
 }

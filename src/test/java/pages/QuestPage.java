@@ -10,8 +10,7 @@ public class QuestPage {
 
     @Step("Клик по кнопке бронирования квеста")
     public void bookingBtnClick() {
-        bookingBtn
-                .shouldBe(visible)
+        bookingBtn.shouldBe(visible)
                 .click();
     }
 }

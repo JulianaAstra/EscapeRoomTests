@@ -18,7 +18,9 @@ public class QuestHelper {
     }
 
     public SlotWithDay getFirstAvailableTimeSlotWithDay(QuestBookingResponseModel questInfo) {
-        Optional<TimeSlot> todaySlot = questInfo.slots().today().stream()
+        Optional<TimeSlot> todaySlot = questInfo.slots()
+                .today()
+                .stream()
                 .filter(TimeSlot::isAvailable)
                 .findFirst();
 
@@ -26,7 +28,9 @@ public class QuestHelper {
             return new SlotWithDay(TODAY, todaySlot.get().time());
         }
 
-        Optional<TimeSlot> tomorrowSlot = questInfo.slots().tomorrow().stream()
+        Optional<TimeSlot> tomorrowSlot = questInfo.slots()
+                .tomorrow()
+                .stream()
                 .filter(TimeSlot::isAvailable)
                 .findFirst();
 

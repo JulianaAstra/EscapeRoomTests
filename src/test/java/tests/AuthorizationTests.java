@@ -43,31 +43,24 @@ public class AuthorizationTests {
     @DisplayName("Попытка бронирования квеста без логина приводит на страницу регистрации")
     @Tag("registration")
     void bookingWithoutLoginTest(String quest) {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openQuestPage(quest);
-        questPage
-                .bookingBtnClick();
-
-        loginPage
-                .checkLoginPageOpened();
+        questPage.bookingBtnClick();
+        loginPage.checkLoginPageOpened();
     }
 
     @Test
     @DisplayName("Пользователь регистрируется с валидными данными")
     @Tag("registration")
     void registerWithValidDataTest() {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openLoginPage();
-        loginPage
-                .checkLoginPageOpened()
+        loginPage.checkLoginPageOpened()
                 .setEmail(testData.validEmail)
                 .setPassword(testData.validPassword)
                 .setCheckbox()
                 .clickSubmitBtn();
-        mainPage
-                .checkLogin();
+        mainPage.checkLogin();
     }
 
     @ValueSource(strings = {
@@ -84,11 +77,9 @@ public class AuthorizationTests {
     @DisplayName("Регистрация с невалидным email невозможна: ")
     @Tag("registration")
     void registerWithInvalidEmailTest(String email) {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openLoginPage();
-        loginPage
-                .checkLoginPageOpened()
+        loginPage.checkLoginPageOpened()
                 .setEmail(email)
                 .setPassword(testData.validPassword)
                 .setCheckbox()
@@ -108,11 +99,9 @@ public class AuthorizationTests {
     @DisplayName("Регистрация с невалидным паролем невозможна: ")
     @Tag("registration")
     void registerWithInvalidPasswordTest(String password) {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openLoginPage();
-        loginPage
-                .checkLoginPageOpened()
+        loginPage.checkLoginPageOpened()
                 .setEmail(testData.validEmail)
                 .setPassword(password)
                 .setCheckbox()

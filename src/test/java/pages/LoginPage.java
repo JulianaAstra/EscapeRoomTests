@@ -3,7 +3,6 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
-
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -20,11 +19,9 @@ public class LoginPage {
     @Step("Cтраница логина с формой регистрации отображается")
     public LoginPage checkLoginPageOpened() {
         loader.shouldNotBe(visible);
-        loginPageHeader
-                .shouldBe(visible)
+        loginPageHeader.shouldBe(visible)
                 .shouldHave(text("Вход"));
-        loginForm
-                .shouldBe(visible);
+        loginForm.shouldBe(visible);
         return this;
     }
 
@@ -42,29 +39,19 @@ public class LoginPage {
 
     @Step("Выбрать чек-бокс согласия с правилами обработки данных")
     public LoginPage setCheckbox() {
-        agreementCheckbox
-                .click();
+        agreementCheckbox.click();
         return this;
     }
 
     @Step("Клик по кнопке Войти")
     public void clickSubmitBtn() {
         checkSubmitBtn(true);
-        submitBtn
-                .click();
+        submitBtn.click();
     }
 
     @Step("Состояние кнопки Войти - {submitBtnState}")
     public void checkSubmitBtn(boolean submitBtnState) {
         boolean btnState = submitBtn.isEnabled();
         Assertions.assertEquals(btnState, submitBtnState);
-    }
-
-    @Step("Регистрация пользователя с валидными данными")
-    public void registerUser(String email, String password) {
-        setEmail(email)
-        .setPassword(password)
-        .setCheckbox()
-        .clickSubmitBtn();
     }
 }

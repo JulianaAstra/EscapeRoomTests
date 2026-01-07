@@ -23,17 +23,17 @@ public enum Quest {
         this.id = id;
     }
 
-    public String getId() {
-        return id;
-    }
+//    public String getId() {
+//        return id;
+//    }
 
-    public static String getIdByName(String questName) {
-        return Arrays.stream(values())
-                .filter(quest -> quest.questName.equals(questName))
-                .map(Quest::getId)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Квест с названием '" + questName + "' не найден. "
-                ));
-    }
+//    public static String getIdByName(String questName) {
+//        return Arrays.stream(values())
+//                .filter(quest -> quest.questName.equals(questName))
+//                .map(Quest::getId)
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException(
+//                        "Квест с названием '" + questName + "' не найден. "
+//                ));
+//    }
 }

@@ -18,16 +18,14 @@ public class MyBookingsPage {
     @Step("Cтраница забронированных квестов отображается")
     public MyBookingsPage checkMyBookingsPageOpened() {
         loader.shouldNotBe(visible);
-        myBookingsPageHeader
-                .shouldBe(visible)
+        myBookingsPageHeader.shouldBe(visible)
                 .shouldHave(text("Мои бронирования"));
         return this;
     }
 
     @Step("Забронированный квест {questName} отображается на странице бронирований")
     public MyBookingsPage checkBookedQuest(String questName, String bookTime) {
-        questCards
-                .shouldHave(sizeGreaterThan(0))
+        questCards.shouldHave(sizeGreaterThan(0))
                 .findBy(text(questName))
                 .$(".quest-card__info")
                 .shouldHave(text(bookTime));

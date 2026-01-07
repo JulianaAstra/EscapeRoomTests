@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import pages.*;
 import util.QuestHelper;
 import java.util.List;
+
+import static com.codeborne.selenide.Selenide.refresh;
 import static tests.TestData.*;
 
 public class BookingTests extends TestBase {
@@ -37,29 +39,24 @@ public class BookingTests extends TestBase {
         SlotWithDay availableTimeSlot = questHelper.getFirstAvailableTimeSlotWithDay(questBookingInfo);
         String time = availableTimeSlot.time();
         String day = String.valueOf(availableTimeSlot.day());
+        String token = accountApiSteps.authUser(testData.randomAuthData).token();
 
-        accountApiSteps
-                .authUser();
-        mainPage
-                .openMainPageWithLocalStorage(REGISTERED_USER_TOKEN, questName)
+        mainPage.openMainPageWithLocalStorage(token, questName)
                 .openQuestPage(questName);
-
-        questPage
-                .bookingBtnClick();
-        bookingPage
-                .checkBookingPageOpened(questName)
-//                .setTime(day, time)
+        questPage.bookingBtnClick();
+        bookingPage.checkBookingPageOpened(questName)
+                .setTime(day, time)
                 .setName(testData.userName)
                 .setPhone(testData.userPhone)
                 .setPlayersCount(minimalPersonsCount)
                 .setCheckbox()
                 .clickBookBtn();
-        myBookingsPage
-                .checkMyBookingsPageOpened()
+        myBookingsPage.checkMyBookingsPageOpened()
                 .checkBookedQuest(questName, time);
 
-        List<UserBookingResponseModel> userBookings = questsApiSteps.getUserBookings(REGISTERED_USER_TOKEN);
+        List<UserBookingResponseModel> userBookings = questsApiSteps.getUserBookings(token);
         String bookingId = questHelper.findBookingIdByQuestId(userBookings, questId);
-        questsApiSteps.deleteUserBooking(REGISTERED_USER_TOKEN, bookingId);
+        questsApiSteps.deleteUserBooking(token, bookingId);
+        accountApiSteps.logoutUser(token);
     }
 }

@@ -37,27 +37,22 @@ public class MainPage {
 
     @Step("Открыть страницу квеста {questName}")
     public void openQuestPage(String questName) {
-        questCards
-                .shouldHave(sizeGreaterThan(0))
+        questCards.shouldHave(sizeGreaterThan(0))
                 .findBy(text(questName))
                 .click();
-        questPageHeader
-                .shouldHave(text(questName));
+        questPageHeader.shouldHave(text(questName));
     }
 
     @Step("Перейти на страницу регистрации")
     public void openLoginPage() {
-        loginButtonNoAuth
-                .shouldBe(visible)
+        loginButtonNoAuth.shouldBe(visible)
                 .click();
     }
 
     @Step("Пользователь залогинен")
     public MainPage checkLogin() {
-        myBookingsBtn
-                .shouldBe(visible);
-        loginButtonAuth
-                .shouldBe(visible);
+        myBookingsBtn.shouldBe(visible);
+        loginButtonAuth.shouldBe(visible);
         return this;
     }
 }
