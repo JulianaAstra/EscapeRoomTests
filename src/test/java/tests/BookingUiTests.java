@@ -62,14 +62,10 @@ public class BookingUiTests extends TestBase {
     @ParameterizedTest(name = "Тематика {0}")
     @DisplayName("Квесты фильтруются по тематике")
     void successfulFilterQuestsTest(QuestType questType) {
-        // фильтруем квесты по тематике
         mainPage.openMainPage()
                 .filterQuestsByType(questType.getEnglishName());
 
-        // сохраняем в массив айдишники всех отображенных на странице после фильтрации квестов
         List<String> questsIds = mainPage.getAllQuestsIds();
-
-        // проверяем каждый квест по айди через апи
         questsApiSteps.checkQuestsTypeInList(questsIds, questType.getEnglishName());
     }
 }
