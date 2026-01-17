@@ -46,7 +46,7 @@ public class AuthorizationApiTests extends TestBase {
 
         AuthResponseModel responseBody = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя");
 
-        accountApiSteps.checkEmailInBody(responseBody.email(), validAuthData.email());
+        accountApiSteps.checkEmailInBody(validAuthData.email(), responseBody.email());
     }
 
     @ValueSource(strings = {
