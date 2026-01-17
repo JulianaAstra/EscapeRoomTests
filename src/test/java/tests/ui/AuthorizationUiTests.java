@@ -1,11 +1,15 @@
-package tests;
+package tests.ui;
 
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
+import tests.TestData;
+
 import static tests.TestData.*;
 import static tests.TestData.EMAIL_EMPTY;
 import static tests.TestData.EMAIL_NO_USERNAME;
@@ -20,6 +24,9 @@ import static tests.TestData.PASSWORD_ONLY_LETTERS;
 import static tests.TestData.PASSWORD_ONLY_NUMBERS;
 import static tests.TestData.PASSWORD_TOO_SHORT;
 
+@Tags({@Tag("all"), @Tag("ui"), @Tag("authorization")})
+@Feature("Авторизация пользователя")
+@DisplayName("UI тесты на авторизацию")
 public class AuthorizationUiTests {
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
@@ -97,7 +104,6 @@ public class AuthorizationUiTests {
     })
     @ParameterizedTest(name = "пароль {0}")
     @DisplayName("Регистрация с невалидным паролем невозможна: ")
-    @Tag("registration")
     void registerWithInvalidPasswordTest(String password) {
         mainPage.openMainPage()
                 .openLoginPage();

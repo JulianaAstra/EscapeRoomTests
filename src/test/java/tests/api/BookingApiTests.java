@@ -1,5 +1,13 @@
-package tests;
+package tests.api;
 
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+
+@Tags({@Tag("all"), @Tag("api"), @Tag("booking")})
+@Feature("Бронирование квеста")
+@DisplayName("API тесты на бронирование квеста")
 public class BookingApiTests {
     // тест 1 позитивный
     // забронировать квест авторизованным пользователем

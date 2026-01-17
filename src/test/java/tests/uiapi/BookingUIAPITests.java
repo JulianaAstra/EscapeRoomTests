@@ -1,20 +1,24 @@
-package tests;
+package tests.uiapi;
 
 import api.AccountApiSteps;
 import api.QuestsApiSteps;
+import io.qameta.allure.Feature;
 import models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 import pages.*;
+import tests.TestBase;
+import tests.TestData;
 import util.QuestHelper;
 import java.util.List;
 
-public class BookingUiTests extends TestBase {
+@Tags({@Tag("all"), @Tag("uiapi"), @Tag("booking")})
+@Feature("Бронирование квеста")
+@DisplayName("UI+API тесты на бронирование квестов")
+public class BookingUIAPITests extends TestBase {
     TestData testData = new TestData();
-    MainPage mainPage = new MainPage();
     BookingPage bookingPage = new BookingPage();
     MyBookingsPage myBookingsPage = new MyBookingsPage();
     QuestsApiSteps questsApiSteps = new QuestsApiSteps();
@@ -24,7 +28,6 @@ public class BookingUiTests extends TestBase {
 
     @Test
     @DisplayName("Квест бронируется и отображается на странице бронирований")
-    @Tag("booking")
     void successfulBookingQuestTest() {
         List <QuestModel> quests = questsApiSteps.getQuestsList();
         QuestModel quest = questHelper.getRandomQuest(quests);
@@ -57,17 +60,4 @@ public class BookingUiTests extends TestBase {
         questsApiSteps.deleteUserBooking(token, bookingId);
         accountApiSteps.logoutUser(token);
     }
-
-    @EnumSource(QuestType.class)
-    @ParameterizedTest(name = "Тематика {0}")
-    @DisplayName("Квесты фильтруются по тематике")
-    void successfulFilterQuestsTest(QuestType questType) {
-        mainPage.openMainPage()
-                .filterQuestsByType(questType.getEnglishName());
-
-        List<String> questsIds = mainPage.getAllQuestsIds();
-        questsApiSteps.checkQuestsTypeInList(questsIds, questType.getEnglishName());
-    }
-
-    // добавить фильтр по сложности, чистый UI
 }

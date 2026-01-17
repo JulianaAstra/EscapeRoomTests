@@ -1,5 +1,13 @@
-package tests;
+package tests.api;
 
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+
+@Tags({@Tag("all"), @Tag("api"), @Tag("authorization")})
+@Feature("Авторизация пользователя")
+@DisplayName("API тесты на авторизацию")
 public class AuthorizationApiTests {
     // тест на проверку тела ответа после успешной авторизации 200 по схеме
     // проверка тела ответа при неуспешной авторизации с невалидным имейлом 401
