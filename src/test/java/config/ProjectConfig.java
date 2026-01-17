@@ -27,7 +27,7 @@ public class ProjectConfig {
         Configuration.browserSize = System.getProperty("windowSize", webConfig.windowSize());
         Configuration.pageLoadStrategy = webConfig.pageLoadStrategy();
 
-        String remote = webConfig.remote();
+        String remote = System.getProperty("remote");
         if (remote != null && !remote.isEmpty()) {
             Configuration.remote = remote;
             Configuration.browserCapabilities = new MutableCapabilities();
@@ -39,5 +39,4 @@ public class ProjectConfig {
             );
         }
     }
-
 }
