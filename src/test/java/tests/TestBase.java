@@ -18,23 +18,6 @@ public class TestBase {
         ProjectConfig projectConfig = new ProjectConfig(webConfig, apiConfig);
         projectConfig.webConfig();
         projectConfig.apiConfig();
-
-
-//        Configuration.remote= System.getProperty("remote");
-//        Configuration.baseUrl = System.getProperty("baseUrl", "https://escape-room-neon.vercel.app/");
-//        Configuration.browser = System.getProperty("browser", "chrome");
-//        Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
-//        Configuration.browserVersion = System.getProperty("version", "128");
-//        Configuration.pageLoadStrategy = "eager";
-//        RestAssured.baseURI = System.getProperty("baseUri", "https://grading.design.htmlacademy.pro");
-//        RestAssured.basePath = System.getProperty("basePath", "/v1/escape-room/");
-//
-//        DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-//                "enableVNC", true,
-//                "enableVideo", true
-//        ));
-//        Configuration.browserCapabilities = capabilities;
     }
 
     @BeforeEach
