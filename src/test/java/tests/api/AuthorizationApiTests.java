@@ -34,16 +34,15 @@ public class AuthorizationApiTests extends TestBase {
                 "Проверка статуса авторизации пользователя");
     }
 
-    @Disabled
     @Test
-    @DisplayName("В теле ответа успешного запроса на авторизацию email пользователя соответствует переданному")
+    @DisplayName("Email пользователя в теле ответа соответствует переданному в теле запроса на авторизацию")
     void checkEmailSuccessfulAuth() {
         TestData testData = new TestData();
-        AuthBodyModel authData = testData.randomAuthData;
+        AuthBodyModel validAuthData = testData.randomAuthData;
 
-        AuthResponseModel responseBody = accountApiSteps.getSuccessfulAuthUserBody(authData, "Авторизация пользователя");
+        AuthResponseModel responseBody = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя");
 
-        assertEquals(authData.email(), responseBody.email());
+        assertEquals(validAuthData.email(), responseBody.email(), "Email в теле ответа " + responseBody.email() + " не соответствует ожидаемому " + validAuthData.email());
     }
     // проверка тела ответа при неуспешной авторизации с невалидным имейлом 401
     // проверка тела ответа при неуспешной авторизации с невалидным паролем 401
