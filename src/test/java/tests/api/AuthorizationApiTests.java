@@ -30,7 +30,7 @@ public class AuthorizationApiTests extends TestBase {
         accountApiSteps.checkSuccessfulRequest(
                 authStatusResponse,
                 200,
-                "schema/auth-schema.json",
+                "schemas/auth-schema.json",
                 "Проверка статуса авторизации пользователя");
     }
 

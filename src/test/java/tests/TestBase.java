@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.*;
 import helpers.Attach;
@@ -27,10 +28,12 @@ public class TestBase {
 
     @AfterEach
     void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
-        closeWebDriver();
+        if (WebDriverRunner.hasWebDriverStarted()) {
+            Attach.screenshotAs("Last screenshot");
+            Attach.pageSource();
+            Attach.browserConsoleLogs();
+            Attach.addVideo();
+            closeWebDriver();
+        }
     }
 }

@@ -68,7 +68,7 @@ public class AccountApiSteps {
                 .pollInterval(1, SECONDS)
                 .until(() -> {
                             Response response = authUser(authData);
-                            checkSuccessfulRequest(response, 200, "schema/auth-schema.json", requestName);
+                            checkSuccessfulRequest(response, 201, "schemas/auth-schema.json", requestName);
 
                             AuthResponseModel checkedResponse = response.then()
                                     .extract()
