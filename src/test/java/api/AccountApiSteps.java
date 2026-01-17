@@ -93,4 +93,9 @@ public class AccountApiSteps {
          response.then()
                  .body("message", equalTo(errorMessage));
     }
+
+    @Step("Проверка email в теле ответа успешного запроса POST /login")
+    public void checkEmailInBody(String userEmail, String responseEmail) {
+        assertEquals(userEmail, responseEmail, "Email в теле ответа " + responseEmail + " не соответствует ожидаемому " + userEmail);
+    }
 }
