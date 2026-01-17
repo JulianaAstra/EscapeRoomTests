@@ -68,4 +68,6 @@ public class BookingUiTests extends TestBase {
         List<String> questsIds = mainPage.getAllQuestsIds();
         questsApiSteps.checkQuestsTypeInList(questsIds, questType.getEnglishName());
     }
+
+    // добавить фильтр по сложности, чистый UI
 }
