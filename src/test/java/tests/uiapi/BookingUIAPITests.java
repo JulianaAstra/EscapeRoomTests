@@ -41,7 +41,7 @@ public class BookingUIAPITests extends TestBase {
         SlotWithDay availableTimeSlot = questHelper.getFirstAvailableTimeSlotWithDay(questBookingInfo);
         String time = availableTimeSlot.time();
         String day = String.valueOf(availableTimeSlot.day());
-        String token = accountApiSteps.getSuccessfulAuthUserBody(testData.randomAuthData).token();
+        String token = accountApiSteps.getSuccessfulAuthUserBody(testData.randomAuthData, "Авторизация пользователя").token();
 
         questPage.openQuestPageWithLocalStorage(token, questId);
         questPage.bookingBtnClick();
