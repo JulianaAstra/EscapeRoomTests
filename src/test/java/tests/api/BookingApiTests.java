@@ -4,11 +4,12 @@ import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
+import tests.TestBase;
 
 @Tags({@Tag("all"), @Tag("api"), @Tag("booking")})
 @Feature("Бронирование квеста")
 @DisplayName("API тесты на бронирование квеста")
-public class BookingApiTests {
+public class BookingApiTests extends TestBase {
     // тест 1 позитивный
     // забронировать квест авторизованным пользователем
     // передать валидные данные типа вермя и кол-во людей

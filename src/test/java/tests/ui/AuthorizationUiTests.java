@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
+import tests.TestBase;
 import tests.TestData;
 
 import static tests.TestData.*;
@@ -27,7 +28,7 @@ import static tests.TestData.PASSWORD_TOO_SHORT;
 @Tags({@Tag("all"), @Tag("ui"), @Tag("authorization")})
 @Feature("Авторизация пользователя")
 @DisplayName("UI тесты на авторизацию")
-public class AuthorizationUiTests {
+public class AuthorizationUiTests extends TestBase {
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
     LoginPage loginPage = new LoginPage();
