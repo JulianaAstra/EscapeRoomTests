@@ -147,10 +147,3 @@ tasks.register('filtration_api', Test) {
     }
     systemProperties System.getProperties()
 }
-
-tasks.register('filtration_all', Test) {
-    useJUnitPlatform {
-        includeTags("filtration_api")
-    }
-    systemProperties System.getProperties()
-}
