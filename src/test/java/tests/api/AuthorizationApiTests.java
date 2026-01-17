@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import tests.TestBase;
 
-@Tags({@Tag("all"), @Tag("api"), @Tag("authorization")})
+@Tags({@Tag("all"), @Tag("api"), @Tag("authorization_all"), @Tag("authorization_api")})
 @Feature("Авторизация пользователя")
 @DisplayName("API тесты на авторизацию")
 public class AuthorizationApiTests extends TestBase {

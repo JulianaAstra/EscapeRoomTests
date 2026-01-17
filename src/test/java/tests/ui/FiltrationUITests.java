@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import tests.TestBase;
 
-@Tags({@Tag("all"), @Tag("ui"), @Tag("filtration")})
+@Tags({@Tag("all"), @Tag("ui"), @Tag("filtration_all"), @Tag("filtration_ui")})
 @Feature("Фильтрация квестов")
 @DisplayName("UI тесты на фильтрацию квестов на главной странице")
 public class FiltrationUITests extends TestBase {

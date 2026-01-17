@@ -13,7 +13,7 @@ import tests.TestBase;
 
 import java.util.List;
 
-@Tags({@Tag("all"), @Tag("uiapi"), @Tag("filtration")})
+@Tags({@Tag("all"), @Tag("uiapi"), @Tag("filtration_all"), @Tag("filtration_uiapi")})
 @Feature("Фильтрация квестов")
 @DisplayName("UI+API тесты на фильтрацию квестов на главной странице")
 public class FiltrationUIAPITests extends TestBase {

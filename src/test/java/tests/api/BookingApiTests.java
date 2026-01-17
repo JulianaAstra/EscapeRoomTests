@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import tests.TestBase;
 
-@Tags({@Tag("all"), @Tag("api"), @Tag("booking")})
+@Tags({@Tag("all"), @Tag("api"), @Tag("booking_all"), @Tag("booking_api")})
 @Feature("Бронирование квеста")
 @DisplayName("API тесты на бронирование квеста")
 public class BookingApiTests extends TestBase {

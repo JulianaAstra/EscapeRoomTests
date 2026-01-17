@@ -92,23 +92,65 @@ tasks.register('uiapi', Test) {
     systemProperties System.getProperties()
 }
 
-tasks.register('authorization', Test) {
+tasks.register('authorization_all', Test) {
     useJUnitPlatform {
-        includeTags("authorization")
+        includeTags("authorization_all")
     }
     systemProperties System.getProperties()
 }
 
-tasks.register('booking', Test) {
+tasks.register('booking_all', Test) {
     useJUnitPlatform {
-        includeTags("booking")
+        includeTags("booking_all")
     }
     systemProperties System.getProperties()
 }
 
-tasks.register('filtration', Test) {
+tasks.register('filtration_all', Test) {
     useJUnitPlatform {
-        includeTags("filtration")
+        includeTags("filtration_all")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('authorization_api', Test) {
+    useJUnitPlatform {
+        includeTags("authorization_api")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('authorization_ui', Test) {
+    useJUnitPlatform {
+        includeTags("authorization_ui")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('booking_api', Test) {
+    useJUnitPlatform {
+        includeTags("booking_api")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('booking_ui', Test) {
+    useJUnitPlatform {
+        includeTags("booking_ui")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('filtration_api', Test) {
+    useJUnitPlatform {
+        includeTags("filtration_api")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('filtration_all', Test) {
+    useJUnitPlatform {
+        includeTags("filtration_api")
     }
     systemProperties System.getProperties()
 }

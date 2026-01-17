@@ -14,7 +14,7 @@ import tests.TestData;
 import util.QuestHelper;
 import java.util.List;
 
-@Tags({@Tag("all"), @Tag("uiapi"), @Tag("booking")})
+@Tags({@Tag("all"), @Tag("uiapi"), @Tag("booking_all"), @Tag("booking_uiapi")})
 @Feature("Бронирование квеста")
 @DisplayName("UI+API тесты на бронирование квестов")
 public class BookingUIAPITests extends TestBase {

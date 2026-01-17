@@ -25,7 +25,7 @@ import static tests.TestData.PASSWORD_ONLY_LETTERS;
 import static tests.TestData.PASSWORD_ONLY_NUMBERS;
 import static tests.TestData.PASSWORD_TOO_SHORT;
 
-@Tags({@Tag("all"), @Tag("ui"), @Tag("authorization")})
+@Tags({@Tag("all"), @Tag("ui"), @Tag("authorization_all"), @Tag("authorization_ui")})
 @Feature("Авторизация пользователя")
 @DisplayName("UI тесты на авторизацию")
 public class AuthorizationUiTests extends TestBase {
