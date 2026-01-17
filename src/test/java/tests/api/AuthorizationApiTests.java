@@ -6,9 +6,13 @@ import io.restassured.response.Response;
 import models.AuthBodyModel;
 import models.AuthResponseModel;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import tests.TestBase;
 import tests.TestData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tests.TestData.*;
+import static tests.TestData.EMAIL_EMPTY;
 
 @Tags({@Tag("all"), @Tag("api"), @Tag("authorization_all"), @Tag("authorization_api")})
 @Feature("Авторизация пользователя")
@@ -44,8 +48,26 @@ public class AuthorizationApiTests extends TestBase {
 
         assertEquals(validAuthData.email(), responseBody.email(), "Email в теле ответа " + responseBody.email() + " не соответствует ожидаемому " + validAuthData.email());
     }
-    // проверка тела ответа при неуспешной авторизации с невалидным имейлом 401
-    // проверка тела ответа при неуспешной авторизации с невалидным паролем 401
-    // проверить статус авторизации с залогиненным пользователем 200 и тело
-    // проверить статус авторизации с незалогиненным пользователем 401 и тело
+
+    @ValueSource(strings = {
+            EMAIL_NO_DOMAIN,
+            EMAIL_NO_AT,
+            EMAIL_DOUBLE_AT,
+            EMAIL_NO_USERNAME,
+            EMAIL_SPACES,
+            EMAIL_SPECIAL_CHARS,
+            EMAIL_ONLY_DOMAIN,
+            EMAIL_EMPTY
+    })
+    @ParameterizedTest(name = "email: {0}")
+    @DisplayName("Регистрация с невалидным email невозможна: ")
+    void registerWithInvalidEmailTest(String email) {
+        TestData testData = new TestData();
+
+        AuthBodyModel invalidAuthData = new AuthBodyModel(email, testData.validPassword);
+        Response response = accountApiSteps.authUser(invalidAuthData);
+
+        accountApiSteps.checkStatusCode(response,400);
+        accountApiSteps.checkErrorMessage(response, "Validation error: '/v1/escape-room/login'");
+    }
 }

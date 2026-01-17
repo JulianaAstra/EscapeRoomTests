@@ -12,6 +12,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static specs.Spec.requestSpec;
 import static specs.Spec.responseSpec;
@@ -43,7 +44,7 @@ public class AccountApiSteps {
     }
 
     @Step("Проверка статус кода запроса")
-    private void checkStatusCode(Response response, Integer statusCode) {
+    public void checkStatusCode(Response response, Integer statusCode) {
         response.then()
                 .spec(responseSpec(statusCode));
     }
@@ -85,5 +86,11 @@ public class AccountApiSteps {
         checkAuthStatusBody(response, pathToSchema);
 
         return this;
+    }
+
+    @Step("Проверка сообщения об ошибке неуспешного запроса {requestName}")
+    public void checkErrorMessage(Response response, String errorMessage) {
+         response.then()
+                 .body("message", equalTo(errorMessage));
     }
 }
