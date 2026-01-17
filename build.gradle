@@ -53,14 +53,44 @@ tasks.withType(Test) {
     }
 }
 
-tasks.register('registration', Test) {
+tasks.register('api', Test) {
     useJUnitPlatform {
-        includeTags("registration")
+        includeTags("api")
     }
+    systemProperties System.getProperties()
+}
+
+tasks.register('ui', Test) {
+    useJUnitPlatform {
+        includeTags("ui")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('uiapi', Test) {
+    useJUnitPlatform {
+        includeTags("uiapi")
+    }
+    systemProperties System.getProperties()
+}
+
+tasks.register('authorization', Test) {
+    useJUnitPlatform {
+        includeTags("authorization")
+    }
+    systemProperties System.getProperties()
 }
 
 tasks.register('booking', Test) {
     useJUnitPlatform {
         includeTags("booking")
     }
+    systemProperties System.getProperties()
+}
+
+tasks.register('filtration', Test) {
+    useJUnitPlatform {
+        includeTags("filtration")
+    }
+    systemProperties System.getProperties()
 }

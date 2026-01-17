@@ -23,8 +23,8 @@ public class TestBase {
         Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
         Configuration.browserVersion = System.getProperty("version", "128");
         Configuration.pageLoadStrategy = "eager";
-        RestAssured.baseURI = "https://grading.design.htmlacademy.pro";
-        RestAssured.basePath = "/v1/escape-room/";
+        RestAssured.baseURI = System.getProperty("baseUri", "https://grading.design.htmlacademy.pro");
+        RestAssured.basePath = System.getProperty("basePath", "/v1/escape-room/");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
