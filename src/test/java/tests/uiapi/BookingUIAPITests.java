@@ -41,7 +41,7 @@ public class BookingUIAPITests extends TestBase {
         SlotWithDay availableTimeSlot = questHelper.getFirstAvailableTimeSlotWithDay(questBookingInfo);
         String time = availableTimeSlot.time();
         String day = String.valueOf(availableTimeSlot.day());
-        String token = accountApiSteps.authUser(testData.randomAuthData).token();
+        String token = accountApiSteps.getSuccessfulAuthUserBody(testData.randomAuthData).token();
 
         questPage.openQuestPageWithLocalStorage(token, questId);
         questPage.bookingBtnClick();
@@ -58,6 +58,6 @@ public class BookingUIAPITests extends TestBase {
         List<UserBookingResponseModel> userBookings = questsApiSteps.getUserBookings(token);
         String bookingId = questHelper.findBookingIdByQuestId(userBookings, questId);
         questsApiSteps.deleteUserBooking(token, bookingId);
-        accountApiSteps.logoutUser(token);
+        accountApiSteps.successfulLogoutUser(token);
     }
 }

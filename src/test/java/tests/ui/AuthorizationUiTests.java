@@ -49,7 +49,6 @@ public class AuthorizationUiTests extends TestBase {
     })
     @ParameterizedTest(name = "Квест {0}")
     @DisplayName("Попытка бронирования квеста без логина приводит на страницу регистрации")
-    @Tag("registration")
     void bookingWithoutLoginTest(String quest) {
         mainPage.openMainPage()
                 .openQuestPage(quest);
@@ -59,7 +58,6 @@ public class AuthorizationUiTests extends TestBase {
 
     @Test
     @DisplayName("Пользователь регистрируется с валидными данными")
-    @Tag("registration")
     void registerWithValidDataTest() {
         mainPage.openMainPage()
                 .openLoginPage();
@@ -83,7 +81,6 @@ public class AuthorizationUiTests extends TestBase {
     })
     @ParameterizedTest(name = "email: {0}")
     @DisplayName("Регистрация с невалидным email невозможна: ")
-    @Tag("registration")
     void registerWithInvalidEmailTest(String email) {
         mainPage.openMainPage()
                 .openLoginPage();

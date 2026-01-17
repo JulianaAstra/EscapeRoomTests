@@ -1,16 +1,50 @@
 package tests.api;
 
+import api.AccountApiSteps;
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
+import io.restassured.response.Response;
+import models.AuthBodyModel;
+import models.AuthResponseModel;
+import org.junit.jupiter.api.*;
 import tests.TestBase;
+import tests.TestData;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tags({@Tag("all"), @Tag("api"), @Tag("authorization_all"), @Tag("authorization_api")})
 @Feature("Авторизация пользователя")
 @DisplayName("API тесты на авторизацию")
 public class AuthorizationApiTests extends TestBase {
-    // тест на проверку тела ответа после успешной авторизации 200 по схеме
+    AccountApiSteps accountApiSteps = new AccountApiSteps();
+
+    @Test
+    @DisplayName("Пользователь успешно авторизуется с валидными данными")
+    void checkSuccessfulAuth() {
+        TestData testData = new TestData();
+        AuthBodyModel validAuthData = testData.randomAuthData;
+
+        String token = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя")
+                .token();
+
+        Response authStatusResponse = accountApiSteps.makeCheckAuthStatus(token);
+
+        accountApiSteps.checkSuccessfulRequest(
+                authStatusResponse,
+                200,
+                "schema/auth-schema.json",
+                "Проверка статуса авторизации пользователя");
+    }
+
+    @Disabled
+    @Test
+    @DisplayName("В теле ответа успешного запроса на авторизацию email пользователя соответствует переданному")
+    void checkEmailSuccessfulAuth() {
+        TestData testData = new TestData();
+        AuthBodyModel authData = testData.randomAuthData;
+
+        AuthResponseModel responseBody = accountApiSteps.getSuccessfulAuthUserBody(authData, "Авторизация пользователя");
+
+        assertEquals(authData.email(), responseBody.email());
+    }
     // проверка тела ответа при неуспешной авторизации с невалидным имейлом 401
     // проверка тела ответа при неуспешной авторизации с невалидным паролем 401
     // проверить статус авторизации с залогиненным пользователем 200 и тело
