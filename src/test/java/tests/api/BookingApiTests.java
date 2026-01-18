@@ -21,7 +21,6 @@ public class BookingApiTests extends TestBase {
     QuestsApiSteps questsApiSteps = new QuestsApiSteps();
     QuestHelper questHelper = new QuestHelper();
     CheckApiSteps checkApiSteps = new CheckApiSteps();
-    AccountRequestsSteps accountRequestsSteps = new AccountRequestsSteps();
     QuestRequestsSteps questRequestsSteps = new QuestRequestsSteps();
 
     @Test
