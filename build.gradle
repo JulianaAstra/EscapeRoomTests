@@ -141,7 +141,7 @@ tasks.register('booking_ui', Test) {
     systemProperties System.getProperties()
 }
 
-tasks.register('filtration_api', Test) {
+tasks.register('filtration_uiapi', Test) {
     useJUnitPlatform {
         includeTags("filtration_api")
     }
