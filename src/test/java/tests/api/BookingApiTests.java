@@ -1,9 +1,8 @@
 package tests.api;
 
-import api.AccountApiSteps;
-import api.CheckApiSteps;
-import api.QuestsApiSteps;
+import api.*;
 import io.qameta.allure.Feature;
+import io.restassured.response.Response;
 import models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import tests.TestBase;
 import tests.TestData;
 import util.QuestHelper;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Tags({@Tag("all"), @Tag("api"), @Tag("booking_all"), @Tag("booking_api")})
@@ -23,6 +21,8 @@ public class BookingApiTests extends TestBase {
     QuestsApiSteps questsApiSteps = new QuestsApiSteps();
     QuestHelper questHelper = new QuestHelper();
     CheckApiSteps checkApiSteps = new CheckApiSteps();
+    AccountRequestsSteps accountRequestsSteps = new AccountRequestsSteps();
+    QuestRequestsSteps questRequestsSteps = new QuestRequestsSteps();
 
     @Test
     @DisplayName("Успешное бронирование квеста авторизованным пользователем")
@@ -74,11 +74,21 @@ public class BookingApiTests extends TestBase {
         checkApiSteps.checkBodyValue(responseBody.quest().title(), questName, "title");
     }
 
-
-    // тест2 с не существующим айди квеста 404 Quest with id aba664c3-bdf3-4fb3-b8f3-42e007864bbf not found
     @Test
     @DisplayName("404 при попытке бронирования квеста с несуществующим id")
     void notExistQuestIdBookingTest() {
+        TestData testData = new TestData();
+        AuthBodyModel validAuthData = testData.randomAuthData;
+        String notExistingQuestId = testData.notExistingQuestId;
 
+        System.out.println(notExistingQuestId);
+
+        String token = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя")
+                .token();
+
+        Response response = questRequestsSteps.makeBookQuestEmptyRequest(token, notExistingQuestId);
+
+        checkApiSteps.checkStatusCode(response, 404);
+        checkApiSteps.checkErrorMessage(response, "Quest with id " + notExistingQuestId + " not found.");
     }
 }

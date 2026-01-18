@@ -57,4 +57,12 @@ public class QuestRequestsSteps {
                 .when()
                 .get("quest/" + questId);
     }
+
+    @Step("Выполнить запрос на бронирование квеста {questId} c пустым телом")
+    public Response makeBookQuestEmptyRequest(String token, String questId) {
+        return given().spec(requestSpec)
+                .header("X-token", token)
+                .when()
+                .post("quest/" + questId + "/booking");
+    }
 }

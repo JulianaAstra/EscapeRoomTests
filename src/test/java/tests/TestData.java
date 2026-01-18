@@ -12,6 +12,7 @@ public class TestData {
 
     public String userName = faker.name().firstName();
     public String userPhone = "+7(900)" + faker.numerify("###-##-##");
+    public String notExistingQuestId = faker.internet().uuid();
 
     public final static String EMAIL_NO_DOMAIN = "test@";
     public final static String EMAIL_NO_AT = "test.example.com";
