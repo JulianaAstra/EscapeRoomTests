@@ -55,9 +55,9 @@ public class BookingUIAPITests extends TestBase {
         myBookingsPage.checkMyBookingsPageOpened()
                 .checkBookedQuest(questName, time);
 
-        List<UserBookingResponseModel> userBookings = questsApiSteps.getUserBookings(token);
+        List<UserBookingResponseModel> userBookings = questsApiSteps.getUserBookings(token, testData.validEmail);
         String bookingId = questHelper.findBookingIdByQuestId(userBookings, questId);
-        questsApiSteps.deleteUserBooking(token, bookingId);
+        questsApiSteps.deleteUserBooking(token, bookingId, questName);
         accountApiSteps.successfulLogoutUser(token);
     }
 }

@@ -1,6 +1,8 @@
 package tests.api;
 
 import api.AccountApiSteps;
+import api.AccountRequestsSteps;
+import api.CheckApiSteps;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import models.AuthBodyModel;
@@ -10,7 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import tests.TestBase;
 import tests.TestData;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tests.TestData.*;
 import static tests.TestData.EMAIL_EMPTY;
 
@@ -19,6 +20,8 @@ import static tests.TestData.EMAIL_EMPTY;
 @DisplayName("API тесты на авторизацию")
 public class AuthorizationApiTests extends TestBase {
     AccountApiSteps accountApiSteps = new AccountApiSteps();
+    CheckApiSteps checkApiSteps = new CheckApiSteps();
+    AccountRequestsSteps accountRequests = new AccountRequestsSteps();
 
     @Test
     @DisplayName("Пользователь успешно авторизуется с валидными данными")
@@ -29,9 +32,9 @@ public class AuthorizationApiTests extends TestBase {
         String token = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя")
                 .token();
 
-        Response authStatusResponse = accountApiSteps.makeCheckAuthStatus(token);
+        Response authStatusResponse = accountRequests.makeCheckAuthStatus(token);
 
-        accountApiSteps.checkSuccessfulRequest(
+        checkApiSteps.checkSuccessfulRequest(
                 authStatusResponse,
                 200,
                 "schemas/auth-schema.json",
@@ -46,7 +49,7 @@ public class AuthorizationApiTests extends TestBase {
 
         AuthResponseModel responseBody = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя");
 
-        accountApiSteps.checkEmailInBody(validAuthData.email(), responseBody.email());
+        checkApiSteps.checkBodyValue(validAuthData.email(), responseBody.email(), "email");
     }
 
     @ValueSource(strings = {
@@ -65,9 +68,9 @@ public class AuthorizationApiTests extends TestBase {
         TestData testData = new TestData();
 
         AuthBodyModel invalidAuthData = new AuthBodyModel(email, testData.validPassword);
-        Response response = accountApiSteps.authUser(invalidAuthData);
+        Response response = accountRequests.authUser(invalidAuthData);
 
-        accountApiSteps.checkStatusCode(response,400);
-        accountApiSteps.checkErrorMessage(response, "Validation error: '/v1/escape-room/login'");
+        checkApiSteps.checkStatusCode(response,400);
+        checkApiSteps.checkErrorMessage(response, "Validation error: '/v1/escape-room/login'");
     }
 }
