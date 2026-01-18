@@ -1,34 +1,24 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.*;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.util.Map;
-
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
+    protected static final WebConfig webConfig = WebConfigReader.Instance.read();
+    protected static final ApiConfig apiConfig = ApiConfigReader.Instance.read();
+
     @BeforeAll
     static void setupConfig() {
-        Configuration.remote= System.getProperty("remote");
-        Configuration.baseUrl = System.getProperty("baseUrl", "https://escape-room-neon.vercel.app/");
-        Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
-        Configuration.browserVersion = System.getProperty("version", "128");
-        Configuration.pageLoadStrategy = "eager";
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
-        Configuration.browserCapabilities = capabilities;
+        ProjectConfig projectConfig = new ProjectConfig(webConfig, apiConfig);
+        projectConfig.webConfig();
+        projectConfig.apiConfig();
     }
 
     @BeforeEach
@@ -38,10 +28,12 @@ public class TestBase {
 
     @AfterEach
     void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
-        closeWebDriver();
+        if (WebDriverRunner.hasWebDriverStarted()) {
+            Attach.screenshotAs("Last screenshot");
+            Attach.pageSource();
+            Attach.browserConsoleLogs();
+            Attach.addVideo();
+            closeWebDriver();
+        }
     }
 }

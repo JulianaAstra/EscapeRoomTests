@@ -1,20 +1,38 @@
-package tests;
+package tests.ui;
 
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
-import static tests.TestData.*;
+import tests.TestBase;
+import tests.TestData;
 
-public class EscapeRoomTests extends TestBase {
+import static tests.TestData.*;
+import static tests.TestData.EMAIL_EMPTY;
+import static tests.TestData.EMAIL_NO_USERNAME;
+import static tests.TestData.EMAIL_ONLY_DOMAIN;
+import static tests.TestData.EMAIL_SPACES;
+import static tests.TestData.EMAIL_SPECIAL_CHARS;
+import static tests.TestData.PASSWORD_16_CHARS;
+import static tests.TestData.PASSWORD_CYRILLIC;
+import static tests.TestData.PASSWORD_EMPTY;
+import static tests.TestData.PASSWORD_ONE_CHAR;
+import static tests.TestData.PASSWORD_ONLY_LETTERS;
+import static tests.TestData.PASSWORD_ONLY_NUMBERS;
+import static tests.TestData.PASSWORD_TOO_SHORT;
+
+@Tags({@Tag("all"), @Tag("ui"), @Tag("authorization_all"), @Tag("authorization_ui")})
+@Feature("Авторизация пользователя")
+@DisplayName("UI тесты на авторизацию")
+public class AuthorizationUiTests extends TestBase {
     MainPage mainPage = new MainPage();
     QuestPage questPage = new QuestPage();
     LoginPage loginPage = new LoginPage();
     TestData testData = new TestData();
-    BookingPage bookingPage = new BookingPage();
-    MyBookingsPage myBookingsPage = new MyBookingsPage();
 
     @ValueSource(strings = {
             "Склеп",
@@ -31,33 +49,24 @@ public class EscapeRoomTests extends TestBase {
     })
     @ParameterizedTest(name = "Квест {0}")
     @DisplayName("Попытка бронирования квеста без логина приводит на страницу регистрации")
-    @Tag("registration")
     void bookingWithoutLoginTest(String quest) {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openQuestPage(quest);
-        questPage
-                .bookingBtnClick();
-
-        loginPage
-                .checkLoginPageOpened();
+        questPage.bookingBtnClick();
+        loginPage.checkLoginPageOpened();
     }
 
     @Test
     @DisplayName("Пользователь регистрируется с валидными данными")
-    @Tag("registration")
     void registerWithValidDataTest() {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openLoginPage();
-        loginPage
-                .checkLoginPageOpened()
+        loginPage.checkLoginPageOpened()
                 .setEmail(testData.validEmail)
                 .setPassword(testData.validPassword)
                 .setCheckbox()
                 .clickSubmitBtn();
-        mainPage
-                .checkLogin();
+        mainPage.checkLogin();
     }
 
     @ValueSource(strings = {
@@ -72,13 +81,10 @@ public class EscapeRoomTests extends TestBase {
     })
     @ParameterizedTest(name = "email: {0}")
     @DisplayName("Регистрация с невалидным email невозможна: ")
-    @Tag("registration")
     void registerWithInvalidEmailTest(String email) {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openLoginPage();
-        loginPage
-                .checkLoginPageOpened()
+        loginPage.checkLoginPageOpened()
                 .setEmail(email)
                 .setPassword(testData.validPassword)
                 .setCheckbox()
@@ -96,46 +102,13 @@ public class EscapeRoomTests extends TestBase {
     })
     @ParameterizedTest(name = "пароль {0}")
     @DisplayName("Регистрация с невалидным паролем невозможна: ")
-    @Tag("registration")
     void registerWithInvalidPasswordTest(String password) {
-        mainPage
-                .openMainPage()
+        mainPage.openMainPage()
                 .openLoginPage();
-        loginPage
-                .checkLoginPageOpened()
+        loginPage.checkLoginPageOpened()
                 .setEmail(testData.validEmail)
                 .setPassword(password)
                 .setCheckbox()
                 .checkSubmitBtn(false);
-    }
-
-    @Test
-    @DisplayName("Квест бронируется и отображается на странице бронирований")
-    @Tag("booking")
-    void successfulBookingQuestTest() {
-        mainPage
-                .openMainPage()
-                .openLoginPage();
-        loginPage
-                .registerUser(testData.validEmail, testData.validPassword);
-        mainPage
-                .checkLogin()
-                .openQuestPage(questName);
-        questPage
-                .bookingBtnClick();
-        bookingPage
-                .checkBookingPageOpened(questName);
-
-        String bookTime = bookingPage.setTime();
-
-        bookingPage
-                .setName(testData.userName)
-                .setPhone(testData.userPhone)
-                .setPlayersCount(personsCount)
-                .setCheckbox()
-                .clickBookBtn();
-        myBookingsPage
-                .checkMyBookingsPageOpened()
-                .checkBookedQuest(questName, bookTime);
     }
 }

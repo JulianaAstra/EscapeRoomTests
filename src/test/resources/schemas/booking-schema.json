@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "time": {
+      "type": "string"
+    },
+    "contactPerson": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "withChildren": {
+      "type": "boolean"
+    },
+    "peopleCount": {
+      "type": "integer"
+    },
+    "id": {
+      "type": "string"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "address",
+        "coords"
+      ]
+    },
+    "quest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "previewImg": {
+          "type": "string"
+        },
+        "previewImgWebp": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "peopleMinMax": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "previewImg",
+        "previewImgWebp",
+        "level",
+        "type",
+        "peopleMinMax"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "date",
+    "time",
+    "contactPerson",
+    "phone",
+    "withChildren",
+    "peopleCount",
+    "id",
+    "location",
+    "quest"
+  ]
+}

@@ -1,17 +1,18 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import models.AuthBodyModel;
 
 public class TestData {
     Faker faker = new Faker();
 
     public String validEmail = faker.internet().emailAddress();
     public String validPassword = "t1" + faker.internet().password(1, 10, true);
+    public AuthBodyModel randomAuthData = new AuthBodyModel(validEmail, validPassword);
 
-    public static String questName = System.getProperty("questName", "Ритуал");
-    public static String personsCount = "5";
     public String userName = faker.name().firstName();
     public String userPhone = "+7(900)" + faker.numerify("###-##-##");
+    public String notExistingQuestId = faker.internet().uuid();
 
     public final static String EMAIL_NO_DOMAIN = "test@";
     public final static String EMAIL_NO_AT = "test.example.com";
