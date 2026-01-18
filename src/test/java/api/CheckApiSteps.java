@@ -32,12 +32,7 @@ public class CheckApiSteps {
                 .body("message", equalTo(errorMessage));
     }
 
-    @Step("Проверка string значения поля {field} в теле ответа")
-    public void checkBodyValue(String actualValue, String expectedValue, String field) {
-        assertEquals(expectedValue, actualValue, "Значение поля " + field + " - " + actualValue + " в теле ответа не соответствует ожидаемому: " + expectedValue);
-    }
-
-    @Step("Проверка значения поля {field} в теле ответа")
+    @Step("Проверка значения {actualValue} поля {field} в теле ответа")
     public <T> void checkBodyValue(T actualValue, T expectedValue, String field) {
         assertEquals(expectedValue, actualValue, "Значение поля " + field + " - " + actualValue + " в теле ответа не соответствует ожидаемому: " + expectedValue);
     }
