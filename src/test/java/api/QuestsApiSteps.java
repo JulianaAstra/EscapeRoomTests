@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import util.QuestHelper;
 import java.util.List;
 import java.util.Objects;
-
-import static io.restassured.RestAssured.given;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static specs.Spec.responseSpec;
