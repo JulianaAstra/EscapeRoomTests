@@ -66,7 +66,7 @@ ____
 ## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/></a><a name="Сборка"></a>Сборка в [Jenkins](https://jenkins.autotests.cloud/job/037-sandraboticelli-escaperoom-12/)</a>
 ____
 <p align="center">  
-<a href="https://jenkins.autotests.cloud/job/037-sandraboticelli-escaperoom-12/"><img src="images/screen/jenkins.png" alt="Jenkins" width="950"/></a>  
+<a href="https://jenkins.autotests.cloud/job/037-sandraboticelli-ui_api-diploma/"><img src="images/screen/jenkins.png" alt="Jenkins" width="950"/></a>  
 </p>
 
 
@@ -77,10 +77,8 @@ ____
 - *windowSize (размер окна браузера, по умолчанию 1920x1080)*
 - *baseUrl (адрес тестируемого веб-сайта)*
 - *remoteUrl (логин, пароль и адрес удаленного сервера Selenoid)*
-- *questName (название квеста для теста бронирования)*
 
 ## **Запуск тестов**
-*Важно*: количество слотов для бронирования на сайте ограничено. Забронированные слоты сбрасываются раз в сутки. Поэтому выделены задачи для отдельного запуска тестов на регистрацию и теста на бронирование (чтобы не исчерпать доступные слоты). В случае полного бронирования квеста предусмотрен выбор другого квеста в конфигурации Jenkins
 
 <a id="console"></a>
 ### Команды для запуска из терминала
@@ -90,14 +88,19 @@ ___
 ./gradlew clean test
 ```
 
-***Локальный запуск тестов на регистрацию:***
+***Локальный запуск тестов API:***
 ```bash  
-./gradlew clean registration
+./gradlew clean api
 ```
 
-***Локальный запуск теста на бронирование:***
+***Локальный запуск тестов UI:***
 ```bash  
-./gradlew clean booking
+./gradlew clean ui
+
+```
+***Локальный запуск тестов UI + API:***
+```bash  
+./gradlew clean uiapi
 ```
 
 ***Удалённый запуск через Jenkins:***
@@ -108,8 +111,11 @@ clean ${TASK}
 -Dversion=${BROWSER_VERSION}
 -DbaseUrl=${BASE_URL}
 -Dremote=https://${USER}:${PASSWORD}@${REMOTE}/wd/hub
--DquestName="${QUEST_NAME}"
 ```
+## NB: также добавлены птеги для запуска разных наборов тестов по функционалу: 
+- *authorization_all*, *authorization_api*, *authorization_ui*
+- *booking_all*, *booking_api*, *booking_ui*
+- *filtration_all*, *filtration_uiapi*, *filtration_ui*
 ___
 <a id="allure"></a>
 ## <img alt="Allure" height="25" src="images/logo/Allure.svg" width="25"/></a> <a name="Allure"></a>Allure [отчет](https://jenkins.autotests.cloud/job/037-sandraboticelli-escaperoom-12/allure/)</a>
