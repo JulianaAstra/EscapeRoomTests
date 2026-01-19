@@ -32,18 +32,35 @@ ____
 <a href="https://selenide.org/"><img src="images/logo/Selenide.svg" width="50" height="50"  alt="Selenide"/></a>  
 <a href="https://aerokube.com/selenoid/"><img src="images/logo/Selenoid.svg" width="50" height="50"  alt="Selenoid"/></a>  
 <a href="https://allurereport.org/"><img src="images/logo/Allure.svg" width="50" height="50"  alt="Allure"/></a>  
-<a href="https://www.jenkins.io/"><img src="images/logo/Jenkins.svg" width="50" height="50"  alt="Jenkins"/></a>   
+<a href="https://www.jenkins.io/"><img src="images/logo/Jenkins.svg" width="50" height="50"  alt="Jenkins"/></a>
+<a href="https://qameta.io/"><img src="images/logo/Testops.svg" width="50" height="50"  alt="AllureTestops"/></a>
 </p>
 
 ____
 <a id="cases"></a>
 ## <a name="Примеры автоматизированных тест-кейсов">**Примеры автоматизированных тест-кейсов:**</a>
 ____
-- ✓ *Проверка регистрации с валидными данными*
-- ✓ *Проверки попытки регистрации с невалидным email*
-- ✓ *Проверки попытки регистрации с невалидным паролем*
-- ✓ *Проверка бронирования квеста*
+### UI тесты
+- ✓ *Регистрация с валидными данными*
+- ✓ *Регистрация с невалидным email*
+- ✓ *Регистрация с невалидным паролем*
+- ✓ *Бронирование квеста без регистрации*
+- ✓ *Фильтрация квестов на главной странице*
+- ✓ *Отрытие страницы квеста с подробной информацией*
 
+____
+### API тесты
+- ✓ *Регистрация с валидными данными*
+- ✓ *Соответствие данных запросу в теле ответа*
+- ✓ *Регистрация с невалидным email*
+- ✓ *Бронирование квеста*
+- ✓ *Бронирование квеста с несуществующим id квеста*
+
+____
+### UI тесты c применением API для подготовки тестовых данных
+- ✓ *Бронирование квеста*
+- ✓ *Фильтрация квестов на главной странице*
+  
 ____
 <a id="jenkins"></a>
 ## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/></a><a name="Сборка"></a>Сборка в [Jenkins](https://jenkins.autotests.cloud/job/037-sandraboticelli-escaperoom-12/)</a>
