@@ -119,7 +119,7 @@ clean ${TASK}
 ```
 ### NB: также добавлены теги для запуска разных наборов тестов по функционалу: 
 - *authorization_all*, *authorization_api*, *authorization_ui*
-- *booking_all*, *booking_api*, *booking_ui*
+- *booking_all*, *booking_api*, *booking_uiapi*
 - *filtration_all*, *filtration_uiapi*, *filtration_ui*
 ___
 <a id="allure"></a>
