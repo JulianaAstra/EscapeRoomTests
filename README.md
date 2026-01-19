@@ -77,6 +77,8 @@ ____
 - *windowSize (размер окна браузера, по умолчанию 1920x1080)*
 - *baseUrl (адрес тестируемого веб-сайта)*
 - *remoteUrl (логин, пароль и адрес удаленного сервера Selenoid)*
+- *baseUri (базовый url тестируемого API)*
+- *basePath (эндпойнт тестируемого API)*
 
 ## **Запуск тестов**
 
@@ -111,8 +113,11 @@ clean ${TASK}
 -Dversion=${BROWSER_VERSION}
 -DbaseUrl=${BASE_URL}
 -Dremote=https://${USER}:${PASSWORD}@${REMOTE}/wd/hub
+-DbaseUri=${BASE_URI}
+-DbasePath=${BASE_PATH}
+
 ```
-## NB: также добавлены птеги для запуска разных наборов тестов по функционалу: 
+## NB: также добавлены теги для запуска разных наборов тестов по функционалу: 
 - *authorization_all*, *authorization_api*, *authorization_ui*
 - *booking_all*, *booking_api*, *booking_ui*
 - *filtration_all*, *filtration_uiapi*, *filtration_ui*
