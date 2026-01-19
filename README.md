@@ -117,7 +117,7 @@ clean ${TASK}
 -DbasePath=${BASE_PATH}
 
 ```
-## NB: также добавлены теги для запуска разных наборов тестов по функционалу: 
+### NB: также добавлены теги для запуска разных наборов тестов по функционалу: 
 - *authorization_all*, *authorization_api*, *authorization_ui*
 - *booking_all*, *booking_api*, *booking_ui*
 - *filtration_all*, *filtration_uiapi*, *filtration_ui*
