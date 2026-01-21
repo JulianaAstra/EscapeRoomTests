@@ -123,7 +123,7 @@ clean ${TASK}
 - *filtration_all*, *filtration_uiapi*, *filtration_ui*
 ___
 <a id="allure"></a>
-## <img alt="Allure" height="25" src="images/logo/Allure.svg" width="25"/></a> <a name="Allure"></a>Allure [отчет](https://jenkins.autotests.cloud/job/037-sandraboticelli-ui_api-diploma/allure/)</a>
+## <img alt="Allure" height="25" src="images/logo/Allure.svg" width="25"/> <a name="Allure"></a>Allure [отчет](https://jenkins.autotests.cloud/job/037-sandraboticelli-ui_api-diploma/allure/)</a>
 ___
 
 ### *Основная страница отчёта*
@@ -152,6 +152,20 @@ ____
 ____
 <p align="center">  
 <img title="Allure Overview Dashboard" src="images/screen/telegram_report.png" width="550">  
+</p>
+
+____
+<a id="testops"></a>
+## <img alt="Testops" height="25" src="images/logo/Testops.svg" width="25"/> <a name="Testops"></a>Интеграция с [TestOps](https://allure.autotests.cloud/project/5086/test-cases?treeId=0)</a>
+____
+### *Тест-кейсы*
+<p align="center">  
+<img src="images/screen/testops_1.png" alt="Testops_testss" width="950"/>  
+</p>
+
+### *Дашборды*
+<p align="center">  
+<img src="images/screen/testops_2.png" alt="Testops_testss" width="950"/>
 </p>
 
 ____
