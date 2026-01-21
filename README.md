@@ -135,7 +135,7 @@ ___
 ### *Тест-кейсы*
 
 <p align="center">  
-<img title="Allure Tests" src="images/screen/allure_report_4.png" width="850">  
+<img title="Allure Tests" src="images/screen/allure_report_2.png" width="850">  
 </p>
 
 ### *Графики*
@@ -143,7 +143,7 @@ ___
   <p align="center">  
 <img title="Allure Graphics" src="images/screen/allure_report_3.png" width="850">
 
-<img title="Allure Graphics" src="images/screen/allure_report_2.png" width="850">  
+<img title="Allure Graphics" src="images/screen/allure_report_4.png" width="850">  
 </p>
 
 ____
