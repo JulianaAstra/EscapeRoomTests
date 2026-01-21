@@ -19,6 +19,8 @@ ____
 
 * <a href="#telegram">Уведомление в Telegram при помощи бота</a>
 
+* <a href="#testops">Интеграция с TestOps</a>
+
 * <a href="#video">Примеры видео выполнения тестов на Selenoid</a>
 ____
 <a id="tools"></a>
