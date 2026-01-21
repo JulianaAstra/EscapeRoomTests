@@ -63,7 +63,7 @@ ____
   
 ____
 <a id="jenkins"></a>
-## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/></a><a name="Сборка"></a>Сборка в [Jenkins](https://jenkins.autotests.cloud/job/037-sandraboticelli-escaperoom-12/)</a>
+## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/></a><a name="Сборка"></a>Сборка в [Jenkins](https://jenkins.autotests.cloud/job/037-sandraboticelli-ui_api-diploma/)</a>
 ____
 <p align="center">  
 <a href="https://jenkins.autotests.cloud/job/037-sandraboticelli-ui_api-diploma/"><img src="images/screen/jenkins.png" alt="Jenkins" width="950"/></a>  
@@ -123,7 +123,7 @@ clean ${TASK}
 - *filtration_all*, *filtration_uiapi*, *filtration_ui*
 ___
 <a id="allure"></a>
-## <img alt="Allure" height="25" src="images/logo/Allure.svg" width="25"/></a> <a name="Allure"></a>Allure [отчет](https://jenkins.autotests.cloud/job/037-sandraboticelli-escaperoom-12/allure/)</a>
+## <img alt="Allure" height="25" src="images/logo/Allure.svg" width="25"/></a> <a name="Allure"></a>Allure [отчет](https://jenkins.autotests.cloud/job/037-sandraboticelli-ui_api-diploma/allure/)</a>
 ___
 
 ### *Основная страница отчёта*
@@ -135,7 +135,7 @@ ___
 ### *Тест-кейсы*
 
 <p align="center">  
-<img title="Allure Tests" src="images/screen/allure_report_4.png" width="850">  
+<img title="Allure Tests" src="images/screen/allure_report_2.png" width="850">  
 </p>
 
 ### *Графики*
@@ -143,7 +143,7 @@ ___
   <p align="center">  
 <img title="Allure Graphics" src="images/screen/allure_report_3.png" width="850">
 
-<img title="Allure Graphics" src="images/screen/allure_report_2.png" width="850">  
+<img title="Allure Graphics" src="images/screen/allure_report_4.png" width="850">  
 </p>
 
 ____
