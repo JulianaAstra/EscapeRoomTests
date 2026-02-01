@@ -16,6 +16,7 @@ public class MyBookingsPage {
     private final SelenideElement loader = $(byText("Loading ..."));
     private final SelenideElement myBookingsPageHeader = $("h1.page-content__title");
     private final ElementsCollection questCards = $$(".quest-card");
+    private final String questCardInfo = ".quest-card__info";
 
     private SelenideElement findQuestCardInfo(SelenideElement questCard) {
         return questCard.$(".quest-card__info");
@@ -31,9 +32,10 @@ public class MyBookingsPage {
 
     @Step("Забронированный квест {questName} отображается на странице бронирований")
     public MyBookingsPage checkBookedQuest(String questName, String bookTime) {
-        SelenideElement questCard = questCards.shouldHave(sizeGreaterThan(0))
-                .findBy(text(questName));
-        findQuestCardInfo(questCard).shouldHave(text(bookTime));
+        questCards.shouldHave(sizeGreaterThan(0))
+                .findBy(text(questName))
+                .$(questCardInfo)
+                .shouldHave(text(bookTime));
 
         return this;
     }
