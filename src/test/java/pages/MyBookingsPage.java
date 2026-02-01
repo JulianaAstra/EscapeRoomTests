@@ -3,6 +3,8 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
+
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -15,6 +17,10 @@ public class MyBookingsPage {
     private final SelenideElement myBookingsPageHeader = $("h1.page-content__title");
     private final ElementsCollection questCards = $$(".quest-card");
 
+    private SelenideElement findQuestCardInfo(SelenideElement questCard) {
+        return questCard.$(".quest-card__info");
+    }
+
     @Step("Cтраница забронированных квестов отображается")
     public MyBookingsPage checkMyBookingsPageOpened() {
         loader.shouldNotBe(visible);
@@ -25,10 +31,10 @@ public class MyBookingsPage {
 
     @Step("Забронированный квест {questName} отображается на странице бронирований")
     public MyBookingsPage checkBookedQuest(String questName, String bookTime) {
-        questCards.shouldHave(sizeGreaterThan(0))
-                .findBy(text(questName))
-                .$(".quest-card__info")
-                .shouldHave(text(bookTime));
+        SelenideElement questCard = questCards.shouldHave(sizeGreaterThan(0))
+                .findBy(text(questName));
+        findQuestCardInfo(questCard).shouldHave(text(bookTime));
+
         return this;
     }
 }
