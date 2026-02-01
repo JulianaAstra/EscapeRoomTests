@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import pages.*;
 import tests.TestBase;
 import tests.TestData;
-
 import static tests.TestData.*;
 import static tests.TestData.EMAIL_EMPTY;
 import static tests.TestData.EMAIL_NO_USERNAME;

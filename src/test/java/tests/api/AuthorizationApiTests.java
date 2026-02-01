@@ -2,9 +2,7 @@ package tests.api;
 
 import api.AccountApiSteps;
 import api.AccountRequestsSteps;
-import api.CheckApiSteps;
 import io.qameta.allure.Feature;
-import io.restassured.response.Response;
 import models.AuthBodyModel;
 import models.AuthResponseModel;
 import org.junit.jupiter.api.*;
@@ -12,6 +10,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import tests.TestBase;
 import tests.TestData;
+import util.ApiHelper;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.equalTo;
+import static specs.Spec.responseSpec;
 import static tests.TestData.*;
 import static tests.TestData.EMAIL_EMPTY;
 
@@ -20,7 +22,7 @@ import static tests.TestData.EMAIL_EMPTY;
 @DisplayName("API тесты на авторизацию")
 public class AuthorizationApiTests extends TestBase {
     AccountApiSteps accountApiSteps = new AccountApiSteps();
-    CheckApiSteps checkApiSteps = new CheckApiSteps();
+    ApiHelper apiHelper = new ApiHelper();
     AccountRequestsSteps accountRequests = new AccountRequestsSteps();
 
     @Test
@@ -32,13 +34,10 @@ public class AuthorizationApiTests extends TestBase {
         String token = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя")
                 .token();
 
-        Response authStatusResponse = accountRequests.makeCheckAuthStatus(token);
-
-        checkApiSteps.checkSuccessfulRequest(
-                authStatusResponse,
-                200,
-                "schemas/auth-schema.json",
-                "Проверка статуса авторизации пользователя");
+        accountRequests.makeCheckAuthStatus(token)
+                .then()
+                .spec(responseSpec(200))
+                .body(matchesJsonSchemaInClasspath("schemas/auth-schema.json"));
     }
 
     @Test
@@ -49,7 +48,7 @@ public class AuthorizationApiTests extends TestBase {
 
         AuthResponseModel responseBody = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя");
 
-        checkApiSteps.checkBodyValue(validAuthData.email(), responseBody.email(), "email");
+        apiHelper.checkBodyValue(validAuthData.email(), responseBody.email(), "email");
     }
 
     @ValueSource(strings = {
@@ -66,11 +65,11 @@ public class AuthorizationApiTests extends TestBase {
     @DisplayName("Регистрация с невалидным email невозможна: ")
     void registerWithInvalidEmailTest(String email) {
         TestData testData = new TestData();
-
         AuthBodyModel invalidAuthData = new AuthBodyModel(email, testData.validPassword);
-        Response response = accountRequests.authUser(invalidAuthData);
 
-        checkApiSteps.checkStatusCode(response,400);
-        checkApiSteps.checkErrorMessage(response, "Validation error: '/v1/escape-room/login'");
+        accountRequests.authUser(invalidAuthData)
+                .then()
+                .spec(responseSpec(400))
+                .body("message", equalTo("Validation error: '/v1/escape-room/login'"));
     }
 }

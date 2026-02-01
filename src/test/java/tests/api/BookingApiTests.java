@@ -2,7 +2,6 @@ package tests.api;
 
 import api.*;
 import io.qameta.allure.Feature;
-import io.restassured.response.Response;
 import models.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -10,8 +9,11 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
 import tests.TestData;
+import util.ApiHelper;
 import util.QuestHelper;
 import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static specs.Spec.responseSpec;
 
 @Tags({@Tag("all"), @Tag("api"), @Tag("booking_all"), @Tag("booking_api")})
 @Feature("Бронирование квеста")
@@ -20,7 +22,7 @@ public class BookingApiTests extends TestBase {
     AccountApiSteps accountApiSteps = new AccountApiSteps();
     QuestsApiSteps questsApiSteps = new QuestsApiSteps();
     QuestHelper questHelper = new QuestHelper();
-    CheckApiSteps checkApiSteps = new CheckApiSteps();
+    ApiHelper apiHelper = new ApiHelper();
     QuestRequestsSteps questRequestsSteps = new QuestRequestsSteps();
 
     @Test
@@ -62,15 +64,15 @@ public class BookingApiTests extends TestBase {
 
         BookingQuestResponseModel responseBody = questsApiSteps.getSuccessfulBookingBody(token, bookingInfo, questId, questName, "Бронирование квеста");
 
-        checkApiSteps.checkBodyValue(responseBody.date(), day, "date");
-        checkApiSteps.checkBodyValue(responseBody.time(), time, "time");
-        checkApiSteps.checkBodyValue(responseBody.contactPerson(), contactPerson, "contactPerson");
-        checkApiSteps.checkBodyValue(responseBody.phone(), phone, "phone");
-        checkApiSteps.checkBodyValue(responseBody.location().address(), address, "address");
-        checkApiSteps.checkBodyValue(responseBody.withChildren(), withChildren, "withChildren");
-        checkApiSteps.checkBodyValue(responseBody.peopleCount(), minimalPersonsCount, "peopleCount");
-        checkApiSteps.checkBodyValue(responseBody.quest().id(), questId, "questId");
-        checkApiSteps.checkBodyValue(responseBody.quest().title(), questName, "title");
+        apiHelper.checkBodyValue(responseBody.date(), day, "date");
+        apiHelper.checkBodyValue(responseBody.time(), time, "time");
+        apiHelper.checkBodyValue(responseBody.contactPerson(), contactPerson, "contactPerson");
+        apiHelper.checkBodyValue(responseBody.phone(), phone, "phone");
+        apiHelper.checkBodyValue(responseBody.location().address(), address, "address");
+        apiHelper.checkBodyValue(responseBody.withChildren(), withChildren, "withChildren");
+        apiHelper.checkBodyValue(responseBody.peopleCount(), minimalPersonsCount, "peopleCount");
+        apiHelper.checkBodyValue(responseBody.quest().id(), questId, "questId");
+        apiHelper.checkBodyValue(responseBody.quest().title(), questName, "title");
     }
 
     @Test
@@ -80,14 +82,12 @@ public class BookingApiTests extends TestBase {
         AuthBodyModel validAuthData = testData.randomAuthData;
         String notExistingQuestId = testData.notExistingQuestId;
 
-        System.out.println(notExistingQuestId);
-
         String token = accountApiSteps.getSuccessfulAuthUserBody(validAuthData, "Авторизация пользователя")
                 .token();
 
-        Response response = questRequestsSteps.makeBookQuestEmptyRequest(token, notExistingQuestId);
-
-        checkApiSteps.checkStatusCode(response, 404);
-        checkApiSteps.checkErrorMessage(response, "Quest with id " + notExistingQuestId + " not found.");
+        questRequestsSteps.makeBookQuestEmptyRequest(token, notExistingQuestId)
+                .then()
+                .spec(responseSpec(404))
+                .body("message", equalTo("Quest with id " + notExistingQuestId + " not found."));
     }
 }

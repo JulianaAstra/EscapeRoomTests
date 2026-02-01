@@ -1,19 +1,19 @@
 package api;
 
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import models.*;
 import org.junit.jupiter.api.Assertions;
 import util.QuestHelper;
 import java.util.List;
 import java.util.Objects;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static specs.Spec.responseSpec;
 
 public class QuestsApiSteps {
     QuestRequestsSteps questRequests = new QuestRequestsSteps();
-    CheckApiSteps checkApiSteps = new CheckApiSteps();
 
     @Step("Получить список квестов")
     public List <QuestModel> getQuestsList() {
@@ -30,12 +30,12 @@ public class QuestsApiSteps {
         return await().atMost(20, SECONDS)
                 .pollInterval(1, SECONDS)
                 .until(() -> {
-                            Response response = questRequests.makeBookQuestRequest(token, bookingData, questId, questName);
-                            checkApiSteps.checkSuccessfulRequest(response, 200, "schemas/booking-schema.json", requestName);
-
-                            BookingQuestResponseModel checkedResponse = response.then()
-                                    .extract()
-                                    .as(BookingQuestResponseModel.class);
+                    BookingQuestResponseModel checkedResponse = questRequests.makeBookQuestRequest(token, bookingData, questId, questName)
+                            .then()
+                            .spec(responseSpec(200))
+                            .body(matchesJsonSchemaInClasspath("schemas/booking-schema.json"))
+                            .extract()
+                            .as(BookingQuestResponseModel.class);
 
                             return checkedResponse.id() != null ? checkedResponse : null;
                         },
